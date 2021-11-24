@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 
 // Colors
@@ -37,29 +36,31 @@ const cIconGradiant = LinearGradient(
 const fPoppins = 'Poppins';
 
 //#region Titles
-var fUpperTitle = TextStyle(
-  fontFamily: Platform.isIOS ? fPoppins : null,
+var fUpperTitle = const TextStyle(
+  fontFamily: fPoppins,
   color: cTextTertiaryColor,
   fontSize: 20.0,
   decoration: TextDecoration.none,
 );
 
-var fTitleStyle = TextStyle(
-  fontFamily: Platform.isIOS ? fPoppins : null,
+var fTitleStyle = const TextStyle(
+  fontFamily: fPoppins,
+  fontWeight: FontWeight.w500,
   color: cTextPrimaryColor,
   fontSize: 25.0,
   decoration: TextDecoration.none,
 );
 
-var fTitle2Style = TextStyle(
-  fontFamily: Platform.isIOS ? fPoppins : null,
+var fTitle2Style = const TextStyle(
+  fontFamily: fPoppins,
+  fontWeight: FontWeight.w300,
   color: cTextPrimaryColor,
   fontSize: 21.0,
   decoration: TextDecoration.none,
 );
 
-var fUnderTitleStyle = TextStyle(
-  fontFamily: Platform.isIOS ? fPoppins : null,
+var fUnderTitleStyle = const TextStyle(
+  fontFamily: fPoppins,
   color: cTextTertiaryColor,
   fontSize: 16.0,
   decoration: TextDecoration.none,
@@ -68,22 +69,24 @@ var fUnderTitleStyle = TextStyle(
 
 //#region Buttons
 // e.g. placeholder text for search field
-var fContentTextStyle = TextStyle(
-  fontFamily: Platform.isIOS ? fPoppins : null,
+var fContentTextStyle = const TextStyle(
+  fontFamily: fPoppins,
   color: cTextTertiaryColor,
   fontSize: 16.0,
   decoration: TextDecoration.none,
 );
 
-var fSmallTextButtonStyle = TextStyle(
-  fontFamily: Platform.isIOS ? fPoppins : null,
+// e.g. View more buttons
+var fSmallTextButtonStyle = const TextStyle(
+  fontFamily: fPoppins,
   color: cTextSecondaryColor,
   fontSize: 12.0,
   decoration: TextDecoration.none,
 );
 
-var fElevatedButtonStyle = TextStyle(
-  fontFamily: Platform.isIOS ? fPoppins : null,
+var fElevatedButtonStyle = const TextStyle(
+  fontFamily: fPoppins,
+  fontWeight: FontWeight.w600,
   color: cTextPrimaryColor,
   fontSize: 17.0,
   decoration: TextDecoration.none,
@@ -91,22 +94,24 @@ var fElevatedButtonStyle = TextStyle(
 //#endregion
 
 //#region List
-var fListTitleStyle = TextStyle(
-  fontFamily: Platform.isIOS ? fPoppins : null,
+var fListTitleStyle = const TextStyle(
+  fontFamily: fPoppins,
   color: cTextPrimaryColor,
   fontSize: 14.0,
   decoration: TextDecoration.none,
 );
 
-var fListUnderTitleStyle = TextStyle(
-  fontFamily: Platform.isIOS ? fPoppins : null,
+var fListUnderTitleStyle = const TextStyle(
+  fontFamily: fPoppins,
+  fontWeight: FontWeight.w300,
   color: cTextSecondaryColor,
   fontSize: 10.0,
   decoration: TextDecoration.none,
 );
 
-var fListLabelStyle = TextStyle(
-  fontFamily: Platform.isIOS ? fPoppins : null,
+var fListLabelStyle = const TextStyle(
+  fontFamily: fPoppins,
+  fontWeight: FontWeight.w300,
   color: cTextTertiaryColor,
   fontSize: 9.0,
   decoration: TextDecoration.none,
@@ -114,15 +119,17 @@ var fListLabelStyle = TextStyle(
 //#endregion
 
 //#region Card
-var fCardTitleStyle = TextStyle(
-  fontFamily: Platform.isIOS ? fPoppins : null,
+var fCardTitleStyle = const TextStyle(
+  fontFamily: fPoppins,
+  fontWeight: FontWeight.w600,
   color: cTextPrimaryColor,
   fontSize: 14.0,
   decoration: TextDecoration.none,
 );
 
-var fCardUnderTitleStyle = TextStyle(
-  fontFamily: Platform.isIOS ? fPoppins : null,
+var fCardUnderTitleStyle = const TextStyle(
+  fontFamily: fPoppins,
+  fontWeight: FontWeight.w600,
   color: cTextPrimaryColor,
   fontSize: 10.0,
   decoration: TextDecoration.none,
@@ -130,16 +137,17 @@ var fCardUnderTitleStyle = TextStyle(
 //#endregion
 
 //#region Miscellaneous
-var fCaptionTextStyle = TextStyle(
-  fontFamily: Platform.isIOS ? fPoppins : null,
+var fCaptionTextStyle = const TextStyle(
+  fontFamily: fPoppins,
+  fontWeight: FontWeight.w300,
   color: cTextSecondaryColor,
   fontSize: 14.0,
   decoration: TextDecoration.none,
 );
 
 // e.g. search results text
-var fResultTextStyle = TextStyle(
-  fontFamily: Platform.isIOS ? fPoppins : null,
+var fResultTextStyle = const TextStyle(
+  fontFamily: fPoppins,
   color: cTextTertiaryColor,
   fontSize: 16.0,
   decoration: TextDecoration.none,
