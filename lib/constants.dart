@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 // Colors
 const cBackgroundColor = Color(0x131521FF);
 
-const cPrimaryColor = Color(0x783E88FF);
-const cSecondaryColor = Color(0xF86F67FF);
+const cPrimaryColor = Color(0xFF783E88);
+const cSecondaryColor = Color(0xFFF86F67);
 const cPrimaryGradiant = LinearGradient(
   begin: Alignment.centerLeft,
   end: Alignment.centerRight,
@@ -12,18 +12,18 @@ const cPrimaryGradiant = LinearGradient(
 );
 
 const cTextPrimaryColor = Color(0xFFFFFFFF);
-const cTextSecondaryColor = Color(0xB1B2D1FF);
-const cTextTertiaryColor = Color(0x7C7B9FFF);
+const cTextSecondaryColor = Color(0xFFB1B2D1);
+const cTextTertiaryColor = Color(0xFF7C7B9F);
 
-const cButtonHighlightedPrimaryColor = Color(0x2D2F3CFF);
-const cButtonHighlightedSecondaryColor = Color(0x363749FF);
+const cButtonHighlightedPrimaryColor = Color(0xFF2D2F3C);
+const cButtonHighlightedSecondaryColor = Color(0xFF363749);
 const cButtonHighlightedGradiant = LinearGradient(
   begin: Alignment.centerLeft,
   end: Alignment.centerRight,
   colors: [cButtonHighlightedPrimaryColor, cButtonHighlightedSecondaryColor],
 );
 
-const cButtonBackgroundColor = Color(0x1F212EFF);
+const cButtonBackgroundColor = Color(0xFF1F212E);
 
 const cIconPrimaryColor = Color(0xFFFFFFFF);
 const cIconSecondaryColor = Color(0x4DC4C4C4);
