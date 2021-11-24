@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rabble/constants.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
   runApp(const MyApp());
@@ -43,13 +44,16 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBackgroundColor,
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Image.asset(
+              'assets/images/onboarding.jpg',
+              fit: BoxFit.cover,
+            ),
+            SvgPicture.asset(
+              'assets/logos/rabble.svg',
+            ),
             Text(
               'You have pushed the button this many times:',
               style: kBodyLabelStyle,
