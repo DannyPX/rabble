@@ -4,18 +4,35 @@ import 'package:flutter/material.dart';
 // Colors
 const kBackgroundColor = Color(0x131521FF);
 
-// TODO Gradient
 const kPrimaryColor = Color(0x783E88FF);
 const kSecondaryColor = Color(0xF86F67FF);
+const kPrimaryGradiant = LinearGradient(
+  begin: Alignment.centerLeft,
+  end: Alignment.centerRight,
+  colors: [kPrimaryColor, kSecondaryColor],
+);
 
 const kTextPrimaryColor = Color(0xFFFFFFFF);
 const kTextSecondaryColor = Color(0xB1B2D1FF);
 const kTextTertiaryColor = Color(0x7C7B9FFF);
 
-// TODO Gradient
 const kButtonHighlightedPrimaryColor = Color(0x2D2F3CFF);
 const kButtonHighlightedSecondaryColor = Color(0x363749FF);
+const kButtonHighlightedGradiant = LinearGradient(
+  begin: Alignment.centerLeft,
+  end: Alignment.centerRight,
+  colors: [kButtonHighlightedPrimaryColor, kButtonHighlightedSecondaryColor],
+);
+
 const kButtonBackgroundColor = Color(0x1F212EFF);
+
+const kIconPrimaryColor = Color(0xFFFFFFFF);
+const kIconSecondaryColor = Color(0x4DC4C4C4);
+const kIconGradiant = LinearGradient(
+  begin: Alignment.centerLeft,
+  end: Alignment.centerRight,
+  colors: [kIconPrimaryColor, kIconSecondaryColor],
+);
 
 // Text Styles
 var kLargeTitleStyle = TextStyle(
