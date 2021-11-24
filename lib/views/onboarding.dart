@@ -31,6 +31,7 @@ class OnboardingPage extends StatelessWidget {
                 ),
               ],
             ),
+            Spacer(),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Text(
@@ -39,6 +40,7 @@ class OnboardingPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
+            Spacer(),
             Spacer(),
             Container(
               padding:
