@@ -52,10 +52,14 @@ class OnboardingPage extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.all(0.0),
                         elevation: 5,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
                       ),
                       child: Ink(
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           gradient: cPrimaryGradiant,
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 14.0),
