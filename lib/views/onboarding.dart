@@ -11,16 +11,25 @@ class OnboardingPage extends StatelessWidget {
       backgroundColor: kBackgroundColor,
       body: Center(
         child: Column(
-          children: <Widget>[
-            Expanded(
-              child: Image.asset(
-                'assets/images/onboarding.jpg',
-                fit: BoxFit.cover,
-                height: 200,
-              ),
-            ),
-            SvgPicture.asset(
-              'assets/logos/rabble.svg',
+          children: [
+            Stack(
+              children: <Widget>[
+                Expanded(
+                  child: Image.asset(
+                    'assets/images/onboarding.jpg',
+                    fit: BoxFit.cover,
+                    height: MediaQuery.of(context).size.height * .5,
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * .43,
+                  ),
+                  child: SvgPicture.asset(
+                    'assets/logos/rabble.svg',
+                  ),
+                ),
+              ],
             ),
           ],
         ),
