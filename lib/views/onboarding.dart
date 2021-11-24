@@ -31,6 +31,48 @@ class OnboardingPage extends StatelessWidget {
                 ),
               ],
             ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Column(
+                children: [
+                  Text(
+                    "Music expresses that which cannot be put into words and that which cannot remain silent.",
+                    style: fTitle2Style,
+                    textAlign: TextAlign.center,
+                  ),
+                  Text(
+                    "Rabble does not require you to create an account, all music is stored on your device.",
+                    style: fCaptionTextStyle,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 17.0),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.all(0.0),
+                        elevation: 5,
+                      ),
+                      child: Ink(
+                        decoration: const BoxDecoration(
+                          gradient: cPrimaryGradiant,
+                        ),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 14.0),
+                          width: double.infinity,
+                          child: Text(
+                            "Let's get started",
+                            textAlign: TextAlign.center,
+                            style: fElevatedButtonStyle,
+                          ),
+                        ),
+                      ),
+                      onPressed: () {},
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),

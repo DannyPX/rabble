@@ -53,7 +53,7 @@ var fTitleStyle = const TextStyle(
 
 var fTitle2Style = const TextStyle(
   fontFamily: fPoppins,
-  fontWeight: FontWeight.w300,
+  fontWeight: FontWeight.w500,
   color: cTextPrimaryColor,
   fontSize: 21.0,
   decoration: TextDecoration.none,
