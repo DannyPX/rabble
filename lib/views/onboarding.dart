@@ -33,13 +33,18 @@ class OnboardingPage extends StatelessWidget {
             ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Text(
+                "Music expresses that which cannot be put into words and that which cannot remain silent.",
+                style: fTitle2Style,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Spacer(),
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
               child: Column(
                 children: [
-                  Text(
-                    "Music expresses that which cannot be put into words and that which cannot remain silent.",
-                    style: fTitle2Style,
-                    textAlign: TextAlign.center,
-                  ),
                   Text(
                     "Rabble does not require you to create an account, all music is stored on your device.",
                     style: fCaptionTextStyle,
