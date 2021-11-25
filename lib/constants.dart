@@ -33,6 +33,12 @@ const cIconGradiant = LinearGradient(
   colors: [cIconPrimaryColor, cIconSecondaryColor],
 );
 
+const cNavbarGradient = LinearGradient(
+  begin: Alignment.topCenter,
+  end: Alignment.bottomCenter,
+  colors: [Color(0x00131521), Color(0xFF131521)],
+);
+
 const fPoppins = 'Poppins';
 
 //#region Titles

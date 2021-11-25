@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rabble/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'home.dart';
+import 'main.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({Key? key}) : super(key: key);
@@ -84,7 +84,7 @@ class OnboardingPage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => HomePage(),
+                            builder: (context) => MainPage(),
                             fullscreenDialog: true,
                           ),
                         );
