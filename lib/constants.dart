@@ -24,6 +24,7 @@ const cButtonHighlightedGradiant = LinearGradient(
 );
 
 const cButtonBackgroundColor = Color(0xFF1F212E);
+const cButtonTransparentBgColor = Color(0x88131521);
 
 const cIconPrimaryColor = Color(0xFFFFFFFF);
 const cIconSecondaryColor = Color(0x4DC4C4C4);
@@ -37,6 +38,14 @@ const cNavbarGradient = LinearGradient(
   begin: Alignment.topCenter,
   end: Alignment.bottomCenter,
   colors: [Color(0x00131521), Color(0xFF131521)],
+);
+
+const cCardPrimaryColor = Color(0x88000000);
+const cCardSecondaryColor = Color(0x00000000);
+const cCardBgGradiant = LinearGradient(
+  begin: Alignment.centerLeft,
+  end: Alignment.centerRight,
+  colors: [cCardPrimaryColor, cCardSecondaryColor],
 );
 
 const fPoppins = 'Poppins';
@@ -135,7 +144,7 @@ var fCardTitleStyle = const TextStyle(
 
 var fCardUnderTitleStyle = const TextStyle(
   fontFamily: fPoppins,
-  fontWeight: FontWeight.w600,
+  fontWeight: FontWeight.w300,
   color: cTextPrimaryColor,
   fontSize: 10.0,
   decoration: TextDecoration.none,
