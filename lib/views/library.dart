@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rabble/components/pagetitle.dart';
+import 'package:rabble/components/titles/page_title.dart';
 
 class LibraryPage extends StatelessWidget {
   const LibraryPage({Key? key}) : super(key: key);

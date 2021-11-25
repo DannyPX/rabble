@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
+import '../../constants.dart';
 
 class PageTitle extends StatelessWidget {
   PageTitle({Key? key, required this.welcomeMessage, required this.title})
