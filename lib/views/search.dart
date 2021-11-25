@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rabble/components/pagetitle.dart';
+import 'package:rabble/components/search_input.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -7,8 +8,11 @@ class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         PageTitle(welcomeMessage: false, title: "Search"),
+        const SizedBox(height: 17.0),
+        SearchInput(),
       ],
     );
   }

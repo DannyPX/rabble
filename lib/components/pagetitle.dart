@@ -14,7 +14,7 @@ class PageTitle extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (welcomeMessage) Text("Welcome to", style: fUpperTitle),
+        Text(welcomeMessage ? "Welcome to" : "", style: fUpperTitle),
         Text(title, style: fTitleStyle),
       ],
     );
