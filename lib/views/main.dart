@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rabble/components/bottom_navigation.dart';
+import 'package:rabble/components/player.dart';
 import 'package:rabble/views/home.dart';
 import 'package:rabble/views/library.dart';
 import 'package:rabble/views/search.dart';
@@ -40,6 +41,23 @@ class _HomePageState extends State<MainPage> {
                 child: _widgetOptions.elementAt(_selectedIndex),
               ),
             ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: const [
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: Player(
+                  title: 'Stromae - Santé (Official Music Video)',
+                  subtitle: 'Stromae',
+                  imageUrl: 'assets/images/onboarding.jpg',
+                  totalTime: Duration(minutes: 3),
+                  currentTime: Duration(minutes: 2, seconds: 30),
+                ),
+              ),
+            ],
           ),
         ],
       ),

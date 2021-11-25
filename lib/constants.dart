@@ -29,9 +29,9 @@ const cButtonTransparentBgColor = Color(0x88131521);
 const cIconPrimaryColor = Color(0xFFFFFFFF);
 const cIconSecondaryColor = Color(0x4DC4C4C4);
 const cIconGradiant = LinearGradient(
-  begin: Alignment.centerLeft,
-  end: Alignment.centerRight,
-  colors: [cIconPrimaryColor, cIconSecondaryColor],
+  begin: Alignment(0, -.5),
+  end: Alignment(0, .6),
+  colors: [cIconPrimaryColor, Color(0x00FFFFFF)],
 );
 
 const cNavbarGradient = LinearGradient(
