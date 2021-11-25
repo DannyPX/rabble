@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:rabble/components/smallcard.dart';
+import 'package:rabble/views/home.dart';
+import 'package:rabble/views/library.dart';
 import 'package:rabble/views/search.dart';
 import '../constants.dart';
 
@@ -11,18 +14,10 @@ class MainPage extends StatefulWidget {
 
 class _HomePageState extends State<MainPage> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle = TextStyle(
-      fontSize: 30, fontWeight: FontWeight.bold, color: cTextPrimaryColor);
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      "Index 0: Home",
-      style: optionStyle,
-    ),
+    HomePage(),
     SearchPage(),
-    Text(
-      "Index 2: Library",
-      style: optionStyle,
-    ),
+    LibraryPage(),
   ];
 
   void _onItemTapped(int index) {

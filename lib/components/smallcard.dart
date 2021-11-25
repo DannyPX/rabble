@@ -12,7 +12,7 @@ class SmallCard extends StatefulWidget {
 
   final String title;
   final String subtitle;
-  final StatefulWidget playlistNavigation;
+  final Widget playlistNavigation;
   final String imageUrl;
 
   @override
@@ -24,7 +24,7 @@ class _SmallCardState extends State<SmallCard> {
 
   String get subtitle => widget.subtitle;
 
-  StatefulWidget get playlistNavigation => widget.playlistNavigation;
+  Widget get playlistNavigation => widget.playlistNavigation;
 
   String get imageUrl => widget.imageUrl;
 
@@ -36,7 +36,6 @@ class _SmallCardState extends State<SmallCard> {
           context,
           MaterialPageRoute(
             builder: (context) => playlistNavigation,
-            fullscreenDialog: true,
           ),
         );
       },

@@ -6,8 +6,8 @@ class PageTitle extends StatelessWidget {
   PageTitle({Key? key, required this.welcomeMessage, required this.title})
       : super(key: key);
 
-  bool welcomeMessage;
-  String title;
+  final bool welcomeMessage;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
