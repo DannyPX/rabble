@@ -45,28 +45,35 @@ class _HomePageState extends State<MainPage> {
         decoration: const BoxDecoration(
           gradient: cNavbarGradient,
         ),
-        child: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search_rounded),
-              label: 'Search',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.my_library_books_outlined),
-              label: 'Library',
-            ),
-          ],
-          type: BottomNavigationBarType.fixed,
-          currentIndex: _selectedIndex,
-          backgroundColor: Colors.transparent,
-          unselectedItemColor: cIconSecondaryColor,
-          selectedItemColor: cIconPrimaryColor,
-          selectedFontSize: 12.0,
-          onTap: _onItemTapped,
+        child: Theme(
+          data: ThemeData(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+          ),
+          child: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.search_rounded),
+                label: 'Search',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.my_library_books_outlined),
+                label: 'Library',
+              ),
+            ],
+            type: BottomNavigationBarType.fixed,
+            currentIndex: _selectedIndex,
+            backgroundColor: Colors.transparent,
+            unselectedItemColor: cIconSecondaryColor,
+            selectedItemColor: cIconPrimaryColor,
+            selectedFontSize: 12.0,
+            elevation: 0,
+            onTap: _onItemTapped,
+          ),
         ),
       ),
     );

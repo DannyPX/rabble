@@ -35,7 +35,7 @@ const cIconGradiant = LinearGradient(
 
 const cNavbarGradient = LinearGradient(
   begin: Alignment.topCenter,
-  end: Alignment.bottomCenter,
+  end: Alignment(0.0, -0.3),
   colors: [Color(0x00131521), Color(0xFF131521)],
 );
 
