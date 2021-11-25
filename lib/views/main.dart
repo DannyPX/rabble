@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rabble/components/smallcard.dart';
+import 'package:rabble/components/bottom_navigation.dart';
 import 'package:rabble/views/home.dart';
 import 'package:rabble/views/library.dart';
 import 'package:rabble/views/search.dart';
@@ -41,41 +41,8 @@ class _HomePageState extends State<MainPage> {
           ),
         ],
       ),
-      bottomNavigationBar: Container(
-        decoration: const BoxDecoration(
-          gradient: cNavbarGradient,
-        ),
-        child: Theme(
-          data: ThemeData(
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-          ),
-          child: BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.search_rounded),
-                label: 'Search',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.my_library_books_outlined),
-                label: 'Library',
-              ),
-            ],
-            type: BottomNavigationBarType.fixed,
-            currentIndex: _selectedIndex,
-            backgroundColor: Colors.transparent,
-            unselectedItemColor: cIconSecondaryColor,
-            selectedItemColor: cIconPrimaryColor,
-            selectedFontSize: 12.0,
-            elevation: 0,
-            onTap: _onItemTapped,
-          ),
-        ),
-      ),
+      bottomNavigationBar: BottomNavigation(
+          selectedIndex: _selectedIndex, itemTapped: _onItemTapped),
     );
   }
 }
