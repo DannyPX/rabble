@@ -2,58 +2,83 @@ import 'package:flutter/material.dart';
 import 'package:rabble/constants.dart';
 
 class SmallCard extends StatefulWidget {
-  const SmallCard({Key? key}) : super(key: key);
+  const SmallCard({
+    Key? key,
+    required this.title,
+    required this.subtitle,
+    required this.playlistNavigation,
+    required this.imageUrl,
+  }) : super(key: key);
+
+  final String title;
+  final String subtitle;
+  final StatefulWidget playlistNavigation;
+  final String imageUrl;
 
   @override
   State<SmallCard> createState() => _SmallCardState();
 }
 
 class _SmallCardState extends State<SmallCard> {
+  String get title => widget.title;
+
+  String get subtitle => widget.subtitle;
+
+  StatefulWidget get playlistNavigation => widget.playlistNavigation;
+
+  String get imageUrl => widget.imageUrl;
+
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: GestureDetector(
-        onTap: () {},
-        child: Container(
-            height: 100,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(
-                  'assets/images/onboarding.jpg',
-                ),
-                fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => playlistNavigation,
+            fullscreenDialog: true,
+          ),
+        );
+      },
+      child: Container(
+          height: 100,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(
+                imageUrl,
               ),
-              borderRadius: BorderRadius.circular(8.0),
+              fit: BoxFit.cover,
             ),
-            child: Row(children: [
-              Expanded(
-                  child: Container(
-                      alignment: Alignment.topLeft,
-                      child: Column(children: [
-                        Expanded(
-                            flex: 5,
-                            child: ListTile(
-                              title: Text(
-                                "Title",
-                                style: fCardTitleStyle,
-                              ),
-                              subtitle:
-                                  Text("Subtitle", style: fCardUnderTitleStyle),
-                            )),
-                        Expanded(
-                            flex: 5,
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Icon(
-                                    Icons.play_arrow_rounded,
-                                    color: cTextPrimaryColor,
-                                  ),
-                                  SizedBox(width: 8),
-                                ]))
-                      ])))
-            ])),
-      ),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          child: Row(children: [
+            Expanded(
+                child: Container(
+                    alignment: Alignment.topLeft,
+                    child: Column(children: [
+                      Expanded(
+                          flex: 5,
+                          child: ListTile(
+                            title: Text(
+                              title,
+                              style: fCardTitleStyle,
+                            ),
+                            subtitle:
+                                Text(subtitle, style: fCardUnderTitleStyle),
+                          )),
+                      Expanded(
+                          flex: 5,
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: const [
+                                Icon(
+                                  Icons.play_arrow_rounded,
+                                  color: cTextPrimaryColor,
+                                ),
+                                SizedBox(width: 8),
+                              ]))
+                    ])))
+          ])),
     );
   }
 }
