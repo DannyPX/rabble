@@ -33,10 +33,12 @@ class _HomePageState extends State<MainPage> {
       // MADE THIS A STACK FOR CURRENTLY PLAYING CARD ADDED LATER
       body: Stack(
         children: [
-          SafeArea(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
-              child: _widgetOptions.elementAt(_selectedIndex),
+          SingleChildScrollView(
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: _widgetOptions.elementAt(_selectedIndex),
+              ),
             ),
           ),
         ],

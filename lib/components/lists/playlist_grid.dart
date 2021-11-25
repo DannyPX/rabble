@@ -16,24 +16,24 @@ class PlaylistGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 207,
-      child: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 200,
-          childAspectRatio: 16 / 9,
-          crossAxisSpacing: 20,
-          mainAxisSpacing: 20,
-        ),
-        itemCount: playlists.length,
-        itemBuilder: (BuildContext ctx, index) {
-          return SmallCard(
-              title: playlists[index]['title'],
-              subtitle: playlists[index]['subtitle'],
-              playlistNavigation: playlists[index]['playlistNavigation'],
-              imageUrl: playlists[index]['imageUrl']);
-        },
+    return GridView.builder(
+      shrinkWrap: true,
+      primary: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: 200,
+        childAspectRatio: 16 / 9,
+        crossAxisSpacing: 20,
+        mainAxisSpacing: 20,
       ),
+      itemCount: playlists.length,
+      itemBuilder: (BuildContext ctx, index) {
+        return SmallCard(
+            title: playlists[index]['title'],
+            subtitle: playlists[index]['subtitle'],
+            playlistNavigation: playlists[index]['playlistNavigation'],
+            imageUrl: playlists[index]['imageUrl']);
+      },
     );
   }
 }
