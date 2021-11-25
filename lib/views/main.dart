@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rabble/views/search.dart';
 import '../constants.dart';
 
 class MainPage extends StatefulWidget {
@@ -17,10 +18,7 @@ class _HomePageState extends State<MainPage> {
       "Index 0: Home",
       style: optionStyle,
     ),
-    Text(
-      "Index 1: Search",
-      style: optionStyle,
-    ),
+    SearchPage(),
     Text(
       "Index 2: Library",
       style: optionStyle,
@@ -37,8 +35,16 @@ class _HomePageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: cBackgroundColor,
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+      // MADE THIS A STACK FOR CURRENTLY PLAYING CARD ADDED LATER
+      body: Stack(
+        children: [
+          SafeArea(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: _widgetOptions.elementAt(_selectedIndex),
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
