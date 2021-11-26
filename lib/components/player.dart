@@ -1,10 +1,13 @@
 import 'dart:ui';
 
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:rabble/constants.dart';
+import 'package:rabble/services/audio_service/audio_service.dart';
+import 'package:get/get.dart';
 
 class Player extends StatefulWidget {
-  const Player({
+  Player({
     Key? key,
     required this.title,
     required this.subtitle,
@@ -16,7 +19,7 @@ class Player extends StatefulWidget {
   final String title;
   final String subtitle;
   final String imageUrl;
-  final Duration currentTime;
+  Duration currentTime;
   final Duration totalTime;
 
   @override
@@ -24,13 +27,25 @@ class Player extends StatefulWidget {
 }
 
 class _PlayerState extends State<Player> {
+  final _audioHandler = Get.find<RabbleAudioService>();
   String get title => widget.title;
   String get subtitle => widget.subtitle;
   String get imageUrl => widget.imageUrl;
+  bool isPlaying = false;
   double iconSize = 35;
+
+  void _onPlayPauseTapped() {
+    setState(() {
+      isPlaying = !isPlaying;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    AudioService.position.listen((Duration position) {
+      widget.currentTime = position;
+    });
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(10.0),
       child: BackdropFilter(
@@ -85,52 +100,68 @@ class _PlayerState extends State<Player> {
                   ),
                   Center(
                     //TODO Previous
-                    child: Icon(
-                      Icons.skip_previous_rounded,
-                      color: cTextPrimaryColor,
-                      size: iconSize,
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Icon(
+                        Icons.skip_previous_rounded,
+                        color: cTextPrimaryColor,
+                        size: iconSize,
+                      ),
                     ),
                   ),
                   SizedBox(width: 10),
                   Center(
                     //TODO Play/Pause
-                    child: CircleAvatar(
-                      backgroundColor: cButtonTransparentBgColor,
-                      radius: 22,
-                      child: Stack(
-                        children: [
-                          Container(
-                            decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                gradient: cPrimaryGradiant),
-                          ),
-                          Center(
-                            child: ShaderMask(
-                              shaderCallback: (Rect bounds) {
-                                final Rect rect =
-                                    Rect.fromLTRB(0, 0, iconSize, iconSize);
-                                return cIconGradiant.createShader(rect);
-                              },
-                              child: SizedBox(
-                                child: Icon(
-                                  Icons.play_arrow_rounded,
-                                  color: cTextPrimaryColor,
-                                  size: iconSize,
+                    child: GestureDetector(
+                      onTap: () {
+                        _onPlayPauseTapped();
+                        isPlaying
+                            ? _audioHandler.play()
+                            : _audioHandler.pause();
+                      },
+                      child: CircleAvatar(
+                        backgroundColor: cButtonTransparentBgColor,
+                        radius: 22,
+                        child: Stack(
+                          children: [
+                            Container(
+                              decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  gradient: cPrimaryGradiant),
+                            ),
+                            Center(
+                              child: ShaderMask(
+                                shaderCallback: (Rect bounds) {
+                                  final Rect rect =
+                                      Rect.fromLTRB(0, 0, iconSize, iconSize);
+                                  return cIconGradiant.createShader(rect);
+                                },
+                                child: SizedBox(
+                                  child: Icon(
+                                    isPlaying
+                                        ? Icons.pause_rounded
+                                        : Icons.play_arrow_rounded,
+                                    color: cTextPrimaryColor,
+                                    size: iconSize,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
                   SizedBox(width: 10),
                   Center(
                     //TODO Next
-                    child: Icon(
-                      Icons.skip_next_rounded,
-                      color: cTextPrimaryColor,
-                      size: iconSize,
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Icon(
+                        Icons.skip_next_rounded,
+                        color: cTextPrimaryColor,
+                        size: iconSize,
+                      ),
                     ),
                   ),
                   SizedBox(width: 10),

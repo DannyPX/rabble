@@ -1,7 +1,11 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
+import 'package:rabble/services/audio_service/audio_service.dart';
 import 'package:rabble/views/onboarding.dart';
+import 'package:get/get.dart';
 
-void main() {
+Future<void> main() async {
+  Get.put<RabbleAudioService>(RabbleAudioService(), permanent: true);
   runApp(const MyApp());
 }
 

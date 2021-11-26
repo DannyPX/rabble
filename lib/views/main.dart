@@ -48,7 +48,7 @@ class _HomePageState extends State<MainPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.end,
-              children: const [
+              children: [
                 Padding(
                   padding: EdgeInsets.all(10),
                   child: Player(
@@ -56,7 +56,7 @@ class _HomePageState extends State<MainPage> {
                     subtitle: 'Stromae',
                     imageUrl: 'assets/images/onboarding.jpg',
                     totalTime: Duration(minutes: 3),
-                    currentTime: Duration(minutes: 2, seconds: 30),
+                    currentTime: Duration(),
                   ),
                 ),
               ],
