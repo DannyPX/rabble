@@ -44,8 +44,7 @@ class _HomePageState extends State<MainPage> {
               ),
             ),
           ),
-          Container(
-            margin: const EdgeInsets.only(bottom: 50.0),
+          SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
