@@ -21,22 +21,16 @@ class SmallCard extends StatefulWidget {
 
 class _SmallCardState extends State<SmallCard> {
   String get title => widget.title;
-
   String get subtitle => widget.subtitle;
-
   Widget get playlistNavigation => widget.playlistNavigation;
-
   String get imageUrl => widget.imageUrl;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => playlistNavigation,
-          ),
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => playlistNavigation),
         );
       },
       child: Container(

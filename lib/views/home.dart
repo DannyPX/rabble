@@ -4,7 +4,7 @@ import 'package:rabble/components/lists/song_row_list.dart';
 import 'package:rabble/components/titles/page_title.dart';
 import 'package:rabble/components/search_input.dart';
 import 'package:rabble/components/titles/second_title.dart';
-import 'library.dart';
+import 'package:rabble/views/playlist.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
       (index) => {
             "title": "title $index",
             "subtitle": "",
-            "playlistNavigation": LibraryPage(),
+            "playlistNavigation": PlaylistPage(title: "title $index"),
             "imageUrl": "assets/images/onboarding.jpg"
           }).toList();
 
