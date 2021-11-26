@@ -36,6 +36,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_svg: ^0.23.0+1
   searchfield: ^0.5.6
+  audio_service: ^0.18.1
+  get: ^4.3.8
+  just_audio: ^0.9.18
 
 dev_dependencies:
   flutter_test:
