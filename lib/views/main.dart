@@ -54,15 +54,15 @@ class _HomePageState extends State<MainPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.end,
-                children: const [
+                children: [
                   Padding(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     child: Player(
                       title: 'Stromae - Santé (Official Music Video)',
                       subtitle: 'Stromae',
                       imageUrl: 'assets/images/onboarding.jpg',
-                      totalTime: Duration(minutes: 3),
-                      currentTime: Duration(minutes: 2, seconds: 30),
+                      totalTime: const Duration(minutes: 3),
+                      currentTime: const Duration(minutes: 2, seconds: 30),
                     ),
                   ),
                 ],
