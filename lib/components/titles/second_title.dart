@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import '../../constants.dart';
 
 class SecondTitle extends StatelessWidget {
-  const SecondTitle({Key? key, required this.title, required this.buttonTitle})
-      : super(key: key);
+  const SecondTitle({
+    Key? key,
+    required this.title,
+    required this.buttonTitle,
+  }) : super(key: key);
 
   final String title;
   final String buttonTitle;

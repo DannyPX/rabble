@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:rabble/constants.dart';
 import 'package:rabble/views/onboarding.dart';
 
 void main() {

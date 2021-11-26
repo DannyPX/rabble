@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rabble/components/cards/small_card.dart';
-import 'package:rabble/views/search.dart';
+import 'package:rabble/views/library.dart';
 
 class PlaylistGrid extends StatelessWidget {
   PlaylistGrid({Key? key}) : super(key: key);
@@ -10,7 +10,7 @@ class PlaylistGrid extends StatelessWidget {
       (index) => {
             "title": "title $index",
             "subtitle": "",
-            "playlistNavigation": const SearchPage(),
+            "playlistNavigation": LibraryPage(),
             "imageUrl": "assets/images/onboarding.jpg"
           }).toList();
 

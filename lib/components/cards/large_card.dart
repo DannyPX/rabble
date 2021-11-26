@@ -12,7 +12,7 @@ class LargeCard extends StatefulWidget {
 
   final String title;
   final int songAmount;
-  final StatefulWidget playlistNavigation;
+  final Widget playlistNavigation;
   final String imageUrl;
 
   @override
@@ -22,7 +22,7 @@ class LargeCard extends StatefulWidget {
 class _LargeCardState extends State<LargeCard> {
   String get title => widget.title;
   int get songAmount => widget.songAmount;
-  StatefulWidget get playlistNavigation => widget.playlistNavigation;
+  Widget get playlistNavigation => widget.playlistNavigation;
   String get imageUrl => widget.imageUrl;
 
   double get circleSize => 25;

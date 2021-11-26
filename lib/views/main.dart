@@ -15,9 +15,9 @@ class MainPage extends StatefulWidget {
 
 class _HomePageState extends State<MainPage> {
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
-    HomePage(),
-    SearchPage(),
+  static List<Widget> pageList = <Widget>[
+    const HomePage(),
+    const SearchPage(),
     LibraryPage(),
   ];
 
@@ -37,15 +37,13 @@ class _HomePageState extends State<MainPage> {
           SingleChildScrollView(
             child: SafeArea(
               child: Padding(
-                // padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 padding: const EdgeInsets.only(
                     left: 20.0, right: 20.0, bottom: 83.0),
-                child: _widgetOptions.elementAt(_selectedIndex),
+                child: pageList[_selectedIndex],
               ),
             ),
           ),
-          Container(
-            margin: const EdgeInsets.only(bottom: 50.0),
+          SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,

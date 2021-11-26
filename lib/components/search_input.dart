@@ -8,18 +8,26 @@ class SearchInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SearchField(
-      searchInputDecoration: InputDecoration(
-        filled: true,
-        fillColor: cButtonBackgroundColor,
-        hintText: "Search for some music",
-        hintStyle: fUnderTitleStyle,
-        prefixIcon: const Icon(Icons.search, color: cTextSecondaryColor),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12.0),
+      child: SearchField(
+        searchInputDecoration: InputDecoration(
+          filled: true,
+          fillColor: cButtonBackgroundColor,
+          hintText: "Search for some music",
+          hintStyle: fUnderTitleStyle,
+          prefixIcon: const Icon(Icons.search, color: cTextSecondaryColor),
+          border: InputBorder.none,
+        ),
+        searchStyle: const TextStyle(
+          color: cTextPrimaryColor,
+        ),
+        itemHeight: 42.0,
+        suggestions: const [
+          "Stromae Santé",
+          "Stromae Santé Lyrics",
+        ],
       ),
-      suggestions: const [
-        "Stromae Santé",
-        "Stromae Santé Lyrics",
-      ],
     );
   }
 }
