@@ -16,7 +16,7 @@ class MainPage extends StatefulWidget {
 class _HomePageState extends State<MainPage> {
   int _selectedIndex = 0;
   static List<Widget> pageList = <Widget>[
-    const HomePage(),
+    HomePage(),
     const SearchPage(),
     LibraryPage(),
   ];
