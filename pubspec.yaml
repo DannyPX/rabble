@@ -39,6 +39,7 @@ dependencies:
   audio_service: ^0.18.1
   get: ^4.3.8
   just_audio: ^0.9.18
+  persistent_bottom_nav_bar: any
 
 dev_dependencies:
   flutter_test:
