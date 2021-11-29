@@ -28,6 +28,7 @@ const cButtonTransparentBgColor = Color(0x88131521);
 
 const cIconPrimaryColor = Color(0xFFFFFFFF);
 const cIconSecondaryColor = Color(0x4DC4C4C4);
+const cIconTertiaryColor = Color(0xFF626374);
 const cIconGradiant = LinearGradient(
   begin: Alignment(0, -.5),
   end: Alignment(0, .6),

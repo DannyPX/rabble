@@ -41,7 +41,8 @@ class MainLayout extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.only(
+                        left: 10.0, right: 10.0, bottom: 60.0),
                     child: Player(
                       title: 'Stromae - Santé (Official Music Video)',
                       subtitle: 'Stromae',

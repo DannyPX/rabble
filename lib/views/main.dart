@@ -10,7 +10,7 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class MainPage extends StatelessWidget {
   MainPage({Key? key}) : super(key: key);
-  StateController _stateController = Get.find<StateController>();
+  final StateController _stateController = Get.find<StateController>();
 
   @override
   Widget build(BuildContext context) {
@@ -19,22 +19,21 @@ class MainPage extends StatelessWidget {
       controller: _stateController.controller,
       screens: _pages(),
       items: _navBarItems(),
+      navBarHeight: 55.0,
       confineInSafeArea: true,
-      backgroundColor: Colors.transparent, // Default is Colors.white.
-      handleAndroidBackButtonPress: true, // Default is true.
-      resizeToAvoidBottomInset:
-          true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
-      stateManagement: true, // Default is true.
-      hideNavigationBarWhenKeyboardShows:
-          true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
+      backgroundColor: Colors.transparent,
+      handleAndroidBackButtonPress: true,
+      resizeToAvoidBottomInset: false,
+      stateManagement: true,
+      hideNavigationBarWhenKeyboardShows: true,
       popAllScreensOnTapOfSelectedTab: true,
       popActionScreens: PopActionScreensType.all,
-      decoration: NavBarDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        colorBehindNavBar: Colors.transparent,
+      navBarStyle: NavBarStyle.style8,
+      screenTransitionAnimation: const ScreenTransitionAnimation(
+        animateTabTransition: true,
+        curve: Curves.easeInOutCirc,
+        duration: Duration(milliseconds: 350),
       ),
-      navBarStyle:
-          NavBarStyle.style2, // Choose the nav bar style with this property.
     );
   }
 
@@ -52,19 +51,22 @@ class MainPage extends StatelessWidget {
         icon: const Icon(Icons.home),
         title: ("Home"),
         activeColorPrimary: cIconPrimaryColor,
-        inactiveColorPrimary: cIconSecondaryColor,
+        inactiveColorPrimary: cIconTertiaryColor,
+        opacity: 0.15,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.search),
+        icon: const Icon(Icons.search),
         title: ("Search"),
         activeColorPrimary: cIconPrimaryColor,
-        inactiveColorPrimary: cIconSecondaryColor,
+        inactiveColorPrimary: cIconTertiaryColor,
+        opacity: 0.15,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.my_library_books_outlined),
+        icon: const Icon(Icons.my_library_books_outlined),
         title: ("Library"),
         activeColorPrimary: cIconPrimaryColor,
-        inactiveColorPrimary: cIconSecondaryColor,
+        inactiveColorPrimary: cIconTertiaryColor,
+        opacity: 0.15,
       )
     ];
   }
