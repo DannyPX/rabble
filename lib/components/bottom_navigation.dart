@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 
 class BottomNavigation extends StatelessWidget {
-  const BottomNavigation(
-      {Key? key, required this.selectedIndex, required this.itemTapped})
-      : super(key: key);
+  const BottomNavigation({
+    Key? key,
+    required this.selectedIndex,
+    required this.itemTapped,
+  }) : super(key: key);
 
   final int selectedIndex;
   final Function itemTapped;

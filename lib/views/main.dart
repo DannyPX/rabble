@@ -15,57 +15,64 @@ class MainPage extends StatefulWidget {
 
 class _HomePageState extends State<MainPage> {
   int _selectedIndex = 0;
-  static List<Widget> pageList = <Widget>[
+  static List<Widget> pages = <Widget>[
     HomePage(),
     const SearchPage(),
     LibraryPage(),
   ];
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    setState(() => _selectedIndex = index);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBody: true,
-      backgroundColor: cBackgroundColor,
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            child: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    left: 20.0, right: 20.0, bottom: 83.0),
-                child: pageList[_selectedIndex],
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        extendBody: true,
+        backgroundColor: cBackgroundColor,
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 20.0, right: 20.0, bottom: 83.0),
+                  child: pages[_selectedIndex],
+                ),
               ),
             ),
-          ),
-          SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Player(
-                    title: 'Stromae - Santé (Official Music Video)',
-                    subtitle: 'Stromae',
-                    imageUrl: 'assets/images/onboarding.jpg',
-                    totalTime: Duration(minutes: 3),
-                    currentTime: Duration(),
+            SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Player(
+                      title: 'Stromae - Santé (Official Music Video)',
+                      subtitle: 'Stromae',
+                      imageUrl: 'assets/images/onboarding.jpg',
+                      totalTime: const Duration(minutes: 3),
+                      currentTime: const Duration(minutes: 2, seconds: 30),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
+        bottomNavigationBar: BottomNavigation(
+            selectedIndex: _selectedIndex, itemTapped: _onItemTapped),
       ),
-      bottomNavigationBar: BottomNavigation(
-          selectedIndex: _selectedIndex, itemTapped: _onItemTapped),
     );
   }
 }
