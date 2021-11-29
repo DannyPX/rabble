@@ -3,8 +3,10 @@ import 'dart:ui';
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:rabble/constants.dart';
+import 'package:rabble/services/audio_service/audio_enum.dart';
 import 'package:rabble/services/audio_service/audio_service.dart';
 import 'package:get/get.dart';
+import 'package:rabble/services/state_controller/state_controller.dart';
 
 class Player extends StatefulWidget {
   Player({
@@ -28,23 +30,22 @@ class Player extends StatefulWidget {
 
 class _PlayerState extends State<Player> {
   final _audioHandler = Get.find<RabbleAudioService>();
+  final _stateController = Get.find<StateController>();
   String get title => widget.title;
   String get subtitle => widget.subtitle;
   String get imageUrl => widget.imageUrl;
   bool isPlaying = false;
   double iconSize = 35;
-
-  void _onPlayPauseTapped() {
-    setState(() {
-      isPlaying = !isPlaying;
-    });
-  }
+  Duration nowTime = Duration();
+  IconData currentIcon = Icons.play_arrow_rounded;
 
   @override
   Widget build(BuildContext context) {
     AudioService.position.listen((Duration position) {
-      widget.currentTime = position;
+      setState(() => nowTime = position);
     });
+
+    print(_stateController.isPlaying.toString());
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(10.0),
@@ -114,10 +115,19 @@ class _PlayerState extends State<Player> {
                     //TODO Play/Pause
                     child: GestureDetector(
                       onTap: () {
-                        _onPlayPauseTapped();
-                        isPlaying
-                            ? _audioHandler.play()
-                            : _audioHandler.pause();
+                        switch (_stateController.isPlaying) {
+                          case ButtonState.playing:
+                            _audioHandler.pause();
+                            currentIcon = Icons.play_arrow_rounded;
+                            break;
+                          case ButtonState.loading:
+                            // TODO: Handle this case.
+                            break;
+                          case ButtonState.paused:
+                            _audioHandler.play();
+                            currentIcon = Icons.pause_rounded;
+                            break;
+                        }
                       },
                       child: CircleAvatar(
                         backgroundColor: cButtonTransparentBgColor,
@@ -138,9 +148,7 @@ class _PlayerState extends State<Player> {
                                 },
                                 child: SizedBox(
                                   child: Icon(
-                                    isPlaying
-                                        ? Icons.pause_rounded
-                                        : Icons.play_arrow_rounded,
+                                    currentIcon,
                                     color: cTextPrimaryColor,
                                     size: iconSize,
                                   ),
@@ -187,8 +195,7 @@ class _PlayerState extends State<Player> {
               gradient: cPrimaryGradiant, darkenInactive: true),
         ),
         child: Slider(
-          value: (widget.currentTime.inMilliseconds /
-              widget.totalTime.inMilliseconds),
+          value: (nowTime.inMilliseconds / widget.totalTime.inMilliseconds),
           onChanged: (value) {},
         ),
       ),
