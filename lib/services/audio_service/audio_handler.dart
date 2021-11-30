@@ -8,29 +8,21 @@ class RabbleAudioHandler extends BaseAudioHandler
   // mix in default seek callback implementations
 
   late AudioPlayer player;
+  final _playlist = ConcatenatingAudioSource(children: []);
 
   RabbleAudioHandler() {
-    print('con');
     player = AudioPlayer();
-    loadAsset();
+    _loadEmptyPlaylist();
     _notifyAudioHandlerAboutPlaybackEvents();
     _listenForDurationChanges();
-  }
-
-  loadAsset() async {
-    try {
-      await player.setAudioSource(AudioSource.uri(Uri.parse(
-          "https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3")));
-    } catch (e) {
-      print("Error loading audio source: $e");
-    }
+    _listenForCurrentSongIndexChanges();
   }
 
   // The most common callbacks:
   @override
   Future<void> play() async {
     print('Playing!');
-    player.play();
+    await player.play();
   }
 
   @override
@@ -46,6 +38,37 @@ class RabbleAudioHandler extends BaseAudioHandler
   @override
   Future<void> seek(Duration position) async {
     player.seek(position);
+  }
+
+  @override
+  Future<void> skipToNext() => player.seekToNext();
+
+  @override
+  Future<void> skipToPrevious() => player.seekToPrevious();
+
+  @override
+  Future<void> addQueueItems(List<MediaItem> mediaItems) async {
+    // manage Just Audio
+    final audioSource = mediaItems.map(_createAudioSource);
+    _playlist.addAll(audioSource.toList());
+    // notify system
+    final newQueue = queue.value..addAll(mediaItems);
+    queue.add(newQueue);
+  }
+
+  Future<void> _loadEmptyPlaylist() async {
+    try {
+      await player.setAudioSource(_playlist);
+    } catch (e) {
+      print("Error: $e");
+    }
+  }
+
+  UriAudioSource _createAudioSource(MediaItem mediaItem) {
+    return AudioSource.uri(
+      Uri.parse(mediaItem.extras!['url']),
+      tag: mediaItem,
+    );
   }
 
   void _notifyAudioHandlerAboutPlaybackEvents() {
@@ -88,6 +111,14 @@ class RabbleAudioHandler extends BaseAudioHandler
       newQueue[index] = newMediaItem;
       queue.add(newQueue);
       mediaItem.add(newMediaItem);
+    });
+  }
+
+  void _listenForCurrentSongIndexChanges() {
+    player.currentIndexStream.listen((index) {
+      final playlist = queue.value;
+      if (index == null || playlist.isEmpty) return;
+      mediaItem.add(playlist[index]);
     });
   }
 }

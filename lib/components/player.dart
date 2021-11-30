@@ -11,18 +11,7 @@ import 'package:rabble/services/state_controller/state_controller.dart';
 class Player extends StatefulWidget {
   Player({
     Key? key,
-    required this.title,
-    required this.subtitle,
-    required this.imageUrl,
-    required this.currentTime,
-    required this.totalTime,
   }) : super(key: key);
-
-  final String title;
-  final String subtitle;
-  final String imageUrl;
-  Duration currentTime;
-  final Duration totalTime;
 
   @override
   _PlayerState createState() => _PlayerState();
@@ -31,21 +20,46 @@ class Player extends StatefulWidget {
 class _PlayerState extends State<Player> {
   final _audioHandler = Get.find<RabbleAudioService>();
   final _stateController = Get.find<StateController>();
-  String get title => widget.title;
-  String get subtitle => widget.subtitle;
-  String get imageUrl => widget.imageUrl;
+  String get title => _stateController.currentMediaItem.title;
+  String get subtitle => _stateController.currentMediaItem.artist!;
+  String get imageUrl => _stateController.currentMediaItem.extras!['imageUrl'];
+  Duration get totalDuration =>
+      checkDuration(_stateController.currentMediaItem.duration);
+  bool get isFirst => _stateController.isFirst;
+  bool get isLast => _stateController.isLast;
   bool isPlaying = false;
   double iconSize = 35;
   Duration nowTime = Duration();
   IconData currentIcon = Icons.play_arrow_rounded;
 
+  Duration checkDuration(duration) {
+    if (duration == null) return const Duration(seconds: 1);
+    return duration;
+  }
+
   @override
   Widget build(BuildContext context) {
     AudioService.position.listen((Duration position) {
       setState(() => nowTime = position);
+      switch (_stateController.isPlaying) {
+        case ButtonState.playing:
+          setState(() => currentIcon = Icons.pause_rounded);
+          break;
+        case ButtonState.loading:
+          // TODO: Handle this case.
+          break;
+        case ButtonState.paused:
+          setState(() => currentIcon = Icons.play_arrow_rounded);
+          break;
+      }
     });
 
     print(_stateController.isPlaying.toString());
+    print(_stateController.currentMediaItem);
+
+    void update() {
+      setState(() {});
+    }
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(10.0),
@@ -102,30 +116,33 @@ class _PlayerState extends State<Player> {
                   Center(
                     //TODO Previous
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        if (!isFirst) {
+                          _audioHandler.previous();
+                          update();
+                        }
+                      },
                       child: Icon(
                         Icons.skip_previous_rounded,
-                        color: cTextPrimaryColor,
+                        color:
+                            !isFirst ? cTextPrimaryColor : cTextTertiaryColor,
                         size: iconSize,
                       ),
                     ),
                   ),
                   SizedBox(width: 10),
                   Center(
-                    //TODO Play/Pause
                     child: GestureDetector(
                       onTap: () {
                         switch (_stateController.isPlaying) {
                           case ButtonState.playing:
                             _audioHandler.pause();
-                            currentIcon = Icons.play_arrow_rounded;
                             break;
                           case ButtonState.loading:
                             // TODO: Handle this case.
                             break;
                           case ButtonState.paused:
                             _audioHandler.play();
-                            currentIcon = Icons.pause_rounded;
                             break;
                         }
                       },
@@ -164,10 +181,15 @@ class _PlayerState extends State<Player> {
                   Center(
                     //TODO Next
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        if (!isLast) {
+                          _audioHandler.next();
+                          update();
+                        }
+                      },
                       child: Icon(
                         Icons.skip_next_rounded,
-                        color: cTextPrimaryColor,
+                        color: !isLast ? cTextPrimaryColor : cTextTertiaryColor,
                         size: iconSize,
                       ),
                     ),
@@ -195,7 +217,7 @@ class _PlayerState extends State<Player> {
               gradient: cPrimaryGradiant, darkenInactive: true),
         ),
         child: Slider(
-          value: (nowTime.inMilliseconds / widget.totalTime.inMilliseconds),
+          value: (nowTime.inMilliseconds / totalDuration.inMilliseconds),
           onChanged: (value) {},
         ),
       ),

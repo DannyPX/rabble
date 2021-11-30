@@ -43,13 +43,7 @@ class MainLayout extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(
                         left: 10.0, right: 10.0, bottom: 60.0),
-                    child: Player(
-                      title: 'Stromae - Santé (Official Music Video)',
-                      subtitle: 'Stromae',
-                      imageUrl: 'assets/images/onboarding.jpg',
-                      totalTime: const Duration(minutes: 3),
-                      currentTime: const Duration(minutes: 2, seconds: 30),
-                    ),
+                    child: Player(),
                   ),
                 ],
               ),
