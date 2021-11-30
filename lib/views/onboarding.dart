@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:rabble/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:get/get.dart';
+import 'package:rabble/services/state_controller/state_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'main.dart';
 
 class OnboardingPage extends StatelessWidget {
-  const OnboardingPage({Key? key}) : super(key: key);
+  OnboardingPage({Key? key}) : super(key: key);
+  final StateController _stateController = Get.find<StateController>();
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,7 @@ class OnboardingPage extends StatelessWidget {
                 ),
               ],
             ),
-            Spacer(),
+            const Spacer(),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Text(
@@ -42,8 +45,8 @@ class OnboardingPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            Spacer(),
-            Spacer(),
+            const Spacer(),
+            const Spacer(),
             Container(
               padding:
                   const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
@@ -54,7 +57,7 @@ class OnboardingPage extends StatelessWidget {
                     style: fCaptionTextStyle,
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 17.0),
+                  const SizedBox(height: 17.0),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
@@ -80,14 +83,11 @@ class OnboardingPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => MainPage(),
-                            fullscreenDialog: true,
-                          ),
-                        );
+                      onPressed: () async {
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        await prefs.setBool('onboardingSeen', true);
+                        Get.off(MainPage());
                       },
                     ),
                   ),
