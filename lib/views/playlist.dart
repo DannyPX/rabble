@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:rabble/components/lists/song_row_list.dart';
 import 'package:rabble/constants.dart';
 import 'package:get/get.dart';
 
 class PlaylistPage extends StatelessWidget {
-  const PlaylistPage({
+  PlaylistPage({
     Key? key,
     required this.title,
     required this.imageUrl,
@@ -12,6 +13,16 @@ class PlaylistPage extends StatelessWidget {
 
   final String title;
   final String imageUrl;
+
+  final List<Map> songs = List.generate(
+      3,
+      (index) => {
+            "title": "title $index",
+            "subtitle": "Stromae",
+            "imageUrl": "assets/images/stromae.jpg",
+            "views": 123,
+            "time": 3.12,
+          }).toList();
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +57,7 @@ class PlaylistPage extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 150.0,
+                    height: 130.0,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       child: Row(
@@ -62,6 +73,10 @@ class PlaylistPage extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: SongRowList(list: songs),
               ),
             ],
           ),

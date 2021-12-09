@@ -12,6 +12,7 @@ class SongRowList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      padding: EdgeInsets.zero,
       shrinkWrap: true,
       primary: true,
       physics: const NeverScrollableScrollPhysics(),
