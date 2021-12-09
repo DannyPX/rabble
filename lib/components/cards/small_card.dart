@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:rabble/constants.dart';
 
 class SmallCard extends StatefulWidget {
@@ -29,49 +31,89 @@ class _SmallCardState extends State<SmallCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => playlistNavigation),
+        pushNewScreen(
+          context,
+          screen: playlistNavigation,
+          withNavBar: true,
         );
       },
-      child: Container(
-          height: 100,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                imageUrl,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12.0),
+        child: SizedBox(
+          height: 100.0,
+          child: Stack(
+            children: [
+              Hero(
+                tag: title + imageUrl,
+                child: Image.asset(
+                  imageUrl,
+                  height: 100,
+                  width: Get.width,
+                  fit: BoxFit.cover,
+                ),
               ),
-              fit: BoxFit.cover,
-            ),
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: Row(children: [
-            Expanded(
+              Hero(
+                tag: title + "gradient",
                 child: Container(
-                    alignment: Alignment.topLeft,
-                    child: Column(children: [
-                      Expanded(
-                          flex: 5,
-                          child: ListTile(
-                            title: Text(
-                              title,
-                              style: fCardTitleStyle,
-                            ),
-                            subtitle:
-                                Text(subtitle, style: fCardUnderTitleStyle),
-                          )),
-                      Expanded(
-                          flex: 5,
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: const [
-                                Icon(
-                                  Icons.play_arrow_rounded,
-                                  color: cTextPrimaryColor,
+                  height: 150.0,
+                  decoration: const BoxDecoration(
+                    gradient: RadialGradient(
+                      radius: .97,
+                      colors: [
+                        Color(0x00131521),
+                        Color(0xBB131521),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 100,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.topLeft,
+                        child: Column(
+                          children: [
+                            Expanded(
+                              flex: 5,
+                              child: ListTile(
+                                title: Hero(
+                                  tag: title,
+                                  child: Text(
+                                    title,
+                                    style: fCardTitleStyle,
+                                  ),
                                 ),
-                                SizedBox(width: 8),
-                              ]))
-                    ])))
-          ])),
+                                subtitle:
+                                    Text(subtitle, style: fCardUnderTitleStyle),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 5,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: const [
+                                  Icon(
+                                    Icons.play_arrow_rounded,
+                                    color: cTextPrimaryColor,
+                                  ),
+                                  SizedBox(width: 8),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

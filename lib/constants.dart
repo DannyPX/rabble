@@ -41,6 +41,12 @@ const cNavbarGradient = LinearGradient(
   colors: [Color(0x00131521), Color(0xFF131521)],
 );
 
+const cTopGradient = LinearGradient(
+  begin: Alignment.topCenter,
+  end: Alignment(0.0, 0.9),
+  colors: [Color(0x00131521), Color(0xFF131521)],
+);
+
 const cCardPrimaryColor = Color(0x88000000);
 const cCardSecondaryColor = Color(0x00000000);
 const cCardBgGradiant = LinearGradient(

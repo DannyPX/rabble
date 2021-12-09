@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rabble/components/player.dart';
+import 'package:flutter/services.dart';
 import '../constants.dart';
 
 class MainLayout extends StatelessWidget {
@@ -19,36 +19,21 @@ class MainLayout extends StatelessWidget {
           currentFocus.unfocus();
         }
       },
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        extendBody: true,
-        backgroundColor: cBackgroundColor,
-        body: Stack(
-          children: [
-            SingleChildScrollView(
-              child: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      left: 20.0, right: 20.0, bottom: 83.0),
-                  child: page,
-                ),
+      child: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light,
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          extendBody: true,
+          backgroundColor: cBackgroundColor,
+          body: SingleChildScrollView(
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 20.0, right: 20.0, bottom: 83.0),
+                child: page,
               ),
             ),
-            SafeArea(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 10.0, right: 10.0, bottom: 60.0),
-                    child: Player(),
-                  ),
-                ],
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

@@ -14,8 +14,9 @@ class HomePage extends StatelessWidget {
       (index) => {
             "title": "title $index",
             "subtitle": "",
-            "playlistNavigation": PlaylistPage(title: "title $index"),
-            "imageUrl": "assets/images/onboarding.jpg"
+            "playlistNavigation": PlaylistPage(
+                title: "title $index", imageUrl: "assets/images/stromae.jpg"),
+            "imageUrl": "assets/images/stromae.jpg"
           }).toList();
 
   final List<Map> songs = List.generate(
