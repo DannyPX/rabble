@@ -51,11 +51,14 @@ class _SongRowState extends State<SongRow> {
               child: Expanded(
                 child: Stack(
                   children: [
-                    AspectRatio(
-                      aspectRatio: 1 / 1,
-                      child: Image(
-                        image: AssetImage(imageUrl),
-                        fit: BoxFit.cover,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: AspectRatio(
+                        aspectRatio: 1 / 1,
+                        child: Image(
+                          image: AssetImage(imageUrl),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     //TODO Add play button
