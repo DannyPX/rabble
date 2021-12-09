@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:audio_service/audio_service.dart';
+import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:path_provider/path_provider.dart';
 
 class RabbleAudioHandler extends BaseAudioHandler
     with
@@ -49,8 +53,9 @@ class RabbleAudioHandler extends BaseAudioHandler
   @override
   Future<void> addQueueItems(List<MediaItem> mediaItems) async {
     // manage Just Audio
-    final audioSource = mediaItems.map(_createAudioSource);
-    _playlist.addAll(audioSource.toList());
+    final audioSource = await Future.wait(
+        mediaItems.map((i) async => await _createAudioSource(i)));
+    await _playlist.addAll(audioSource.toList());
     // notify system
     final newQueue = queue.value..addAll(mediaItems);
     queue.add(newQueue);
@@ -64,9 +69,15 @@ class RabbleAudioHandler extends BaseAudioHandler
     }
   }
 
-  UriAudioSource _createAudioSource(MediaItem mediaItem) {
+  Future<UriAudioSource> _createAudioSource(MediaItem mediaItem) async {
+    var content = await rootBundle.load(mediaItem.extras!['url']);
+    final directory = await getApplicationDocumentsDirectory();
+    print(directory.path);
+    var file = File("${directory.path}/${mediaItem.id}");
+    file.writeAsBytesSync(content.buffer.asUint8List());
+
     return AudioSource.uri(
-      Uri.parse(mediaItem.extras!['url']),
+      Uri.file(file.path),
       tag: mediaItem,
     );
   }

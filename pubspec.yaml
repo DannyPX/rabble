@@ -73,6 +73,7 @@ flutter:
     - assets/icons/
     - assets/images/
     - assets/logos/
+    - assets/audio/
   fonts:
     - family: SF Pro Text
       fonts:

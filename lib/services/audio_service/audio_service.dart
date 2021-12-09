@@ -54,38 +54,35 @@ class RabbleAudioService {
 
   Future<void> _loadPlaylist() async {
     var item1 = MediaItem(
-        id: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+        id: 'SoundHelix-Song-1.mp3',
         album: '-',
         title: 'Song 1',
         artist: 'Artist 1',
         artUri: Uri.parse('https://example.com/album.jpg'),
         extras: {
-          'url':
-              'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+          'url': 'assets/audio/SoundHelix-Song-1.mp3',
           'imageUrl': 'assets/images/onboarding.jpg'
         });
 
     var item2 = MediaItem(
-        id: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+        id: 'SoundHelix-Song-2.mp3',
         album: '-',
         title: 'Song 2',
         artist: 'Artist 2',
         artUri: Uri.parse('https://example.com/album.jpg'),
         extras: {
-          'url':
-              'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+          'url': 'assets/audio/SoundHelix-Song-2.mp3',
           'imageUrl': 'assets/images/onboarding.jpg'
         });
 
     var item3 = MediaItem(
-        id: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+        id: 'SoundHelix-Song-3.mp3',
         album: '-',
         title: 'Song 3',
         artist: 'Artist 3',
         artUri: Uri.parse('https://example.com/album.jpg'),
         extras: {
-          'url':
-              'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+          'url': 'assets/audio/SoundHelix-Song-3.mp3',
           'imageUrl': 'assets/images/onboarding.jpg'
         });
 
