@@ -4,7 +4,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <application
-        android:label="rabble"
+        android:label="Rabble"
         android:icon="@mipmap/ic_launcher">
 
         <!-- ADD THIS "SERVICE" element -->
