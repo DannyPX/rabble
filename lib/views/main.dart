@@ -11,7 +11,7 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class MainPage extends StatelessWidget {
   MainPage({Key? key}) : super(key: key);
-  final StateController _stateController = Get.find<StateController>();
+  final GetController _stateController = Get.find<GetController>();
 
   @override
   Widget build(BuildContext context) {

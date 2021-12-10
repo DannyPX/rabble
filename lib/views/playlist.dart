@@ -21,7 +21,7 @@ class PlaylistPage extends StatelessWidget {
             "subtitle": "Stromae",
             "imageUrl": "assets/images/stromae.jpg",
             "views": 123,
-            "time": 3.12,
+            "time": Duration(minutes: 3, seconds: 12),
           }).toList();
 
   @override
@@ -76,7 +76,7 @@ class PlaylistPage extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: SongRowList(list: songs),
+                child: SongRowList(list: songs, live: false),
               ),
             ],
           ),

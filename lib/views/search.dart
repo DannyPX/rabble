@@ -12,7 +12,7 @@ class SearchPage extends StatelessWidget {
       children: [
         PageTitle(welcomeMessage: false, title: "Search"),
         const SizedBox(height: 17.0),
-        InputField(),
+        SearchBox(),
       ],
     );
   }

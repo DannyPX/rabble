@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:rabble/services/audio_service/audio_enum.dart';
 
-class StateController extends GetxController {
-  StateController();
+class GetController extends GetxController {
+  GetController();
 
   ButtonState isPlaying = ButtonState.paused;
   MediaItem currentMediaItem = MediaItem(

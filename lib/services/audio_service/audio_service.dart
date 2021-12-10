@@ -6,7 +6,7 @@ import 'audio_enum.dart';
 
 class RabbleAudioService {
   late AudioHandler _audioHandler;
-  final StateController _stateController = Get.find<StateController>();
+  final GetController _stateController = Get.find<GetController>();
 
   RabbleAudioService() {
     init();

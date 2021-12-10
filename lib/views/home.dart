@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
             "subtitle": "Stromae",
             "imageUrl": "assets/images/onboarding.jpg",
             "views": 123,
-            "time": 3.12,
+            "time": Duration(minutes: 3, seconds: 12),
           }).toList();
 
   @override
@@ -36,13 +36,13 @@ class HomePage extends StatelessWidget {
       children: [
         PageTitle(welcomeMessage: true, title: "Rabble"),
         const SizedBox(height: 16.0),
-        const InputField(),
+        const SearchBox(),
         const SizedBox(height: 16.0),
         const SecondTitle(title: "Your playlists", buttonTitle: "View more"),
         SmallCardGrid(list: playlists),
         const SizedBox(height: 16.0),
         const SecondTitle(title: "Recently listened", buttonTitle: ""),
-        SongRowList(list: songs),
+        SongRowList(list: songs, live: false),
       ],
     );
   }

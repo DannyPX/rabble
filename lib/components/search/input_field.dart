@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:rabble/components/search/search_result.dart';
 import 'package:rabble/components/search/suggestion_list.dart';
 
 import '../../constants.dart';
 
-class InputField extends StatefulWidget {
-  const InputField({Key? key}) : super(key: key);
+class SearchBox extends StatefulWidget {
+  const SearchBox({Key? key}) : super(key: key);
 
   @override
-  State<InputField> createState() => _InputFieldState();
+  State<SearchBox> createState() => _SearchBoxState();
 }
 
-class _InputFieldState extends State<InputField> {
+class _SearchBoxState extends State<SearchBox> {
   String query = '';
   bool focusInput = false;
   final TextEditingController _txt = TextEditingController();
@@ -47,6 +48,7 @@ class _InputFieldState extends State<InputField> {
             child: SuggestionList(query, _changeQuery),
             height: 500,
           ),
+        if (!focusInput) SearchResult(query: query)
       ],
     );
   }

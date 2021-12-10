@@ -9,13 +9,15 @@ class SongRow extends StatefulWidget {
     required this.imageUrl,
     required this.views,
     required this.time,
+    required this.live,
   }) : super(key: key);
 
   final String title;
   final String subtitle;
   final int views;
-  final double time;
+  final Duration time;
   final String imageUrl;
+  final bool live;
 
   @override
   State<SongRow> createState() => _SongRowState();
@@ -30,7 +32,9 @@ class _SongRowState extends State<SongRow> {
 
   int get views => widget.views;
 
-  double get time => widget.time;
+  Duration get time => widget.time;
+
+  bool get live => widget.live;
 
   @override
   Widget build(BuildContext context) {
@@ -55,10 +59,7 @@ class _SongRowState extends State<SongRow> {
                       borderRadius: BorderRadius.circular(8.0),
                       child: AspectRatio(
                         aspectRatio: 1 / 1,
-                        child: Image(
-                          image: AssetImage(imageUrl),
-                          fit: BoxFit.cover,
-                        ),
+                        child: _formatImage(imageUrl, live),
                       ),
                     ),
                     //TODO Add play button
@@ -113,7 +114,7 @@ class _SongRowState extends State<SongRow> {
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            time.toString(),
+                            _formatDuration(time),
                             style: fListUnderTitleStyle,
                             maxLines: 1,
                           ),
@@ -135,5 +136,34 @@ class _SongRowState extends State<SongRow> {
         ],
       ),
     );
+  }
+
+  String _formatDuration(Duration d) {
+    final totalSecs = d.inSeconds;
+    final hours = totalSecs ~/ 3600;
+    final minutes = (totalSecs % 3600) ~/ 60;
+    final seconds = totalSecs % 60;
+    final buffer = StringBuffer();
+
+    if (hours > 0) {
+      buffer.write('$hours:');
+    }
+    buffer.write('${minutes.toString().padLeft(2, '0')}:');
+    buffer.write(seconds.toString().padLeft(2, '0'));
+    return buffer.toString();
+  }
+
+  Image _formatImage(String image, bool live) {
+    if (!live) {
+      return Image(
+        image: AssetImage(image),
+        fit: BoxFit.cover,
+      );
+    } else {
+      return Image.network(
+        image,
+        fit: BoxFit.cover,
+      );
+    }
   }
 }

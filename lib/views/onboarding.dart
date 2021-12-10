@@ -8,7 +8,7 @@ import 'main.dart';
 
 class OnboardingPage extends StatelessWidget {
   OnboardingPage({Key? key}) : super(key: key);
-  final StateController _stateController = Get.find<StateController>();
+  final GetController _stateController = Get.find<GetController>();
 
   @override
   Widget build(BuildContext context) {

@@ -19,7 +19,7 @@ class Player extends StatefulWidget {
 
 class _PlayerState extends State<Player> {
   final _audioHandler = Get.find<RabbleAudioService>();
-  final _stateController = Get.find<StateController>();
+  final _stateController = Get.find<GetController>();
   String get title => _stateController.currentMediaItem.title;
   String get subtitle => _stateController.currentMediaItem.artist!;
   String get imageUrl => _stateController.currentMediaItem.extras!['imageUrl'];
