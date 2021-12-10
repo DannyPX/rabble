@@ -15,6 +15,7 @@ class _SearchBoxState extends State<SearchBox> {
   String query = '';
   bool focusInput = false;
   final TextEditingController _txt = TextEditingController();
+  final FocusScopeNode _focus = FocusScopeNode();
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +23,7 @@ class _SearchBoxState extends State<SearchBox> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         FocusScope(
+          node: _focus,
           child: Focus(
             onFocusChange: (focus) => setState(() => focusInput = focus),
             child: TextField(
@@ -58,5 +60,6 @@ class _SearchBoxState extends State<SearchBox> {
     _txt.text = query;
     _txt.selection =
         TextSelection.fromPosition(TextPosition(offset: _txt.text.length));
+    _focus.unfocus();
   }
 }
