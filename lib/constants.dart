@@ -1,104 +1,187 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 
 // Colors
-const kBackgroundColor = Color(0x131521FF);
+const cBackgroundColor = Color(0xFF131521);
 
-// TODO Gradient
-const kPrimaryColor = Color(0x783E88FF);
-const kSecondaryColor = Color(0xF86F67FF);
-
-const kTextPrimaryColor = Color(0xFFFFFFFF);
-const kTextSecondaryColor = Color(0xB1B2D1FF);
-const kTextTertiaryColor = Color(0x7C7B9FFF);
-
-// TODO Gradient
-const kButtonHighlightedPrimaryColor = Color(0x2D2F3CFF);
-const kButtonHighlightedSecondaryColor = Color(0x363749FF);
-const kButtonBackgroundColor = Color(0x1F212EFF);
-
-// Text Styles
-var kLargeTitleStyle = TextStyle(
-  fontSize: 28.0,
-  fontWeight: FontWeight.bold,
-  color: kTextPrimaryColor,
-  fontFamily: Platform.isIOS ? 'SF Pro Text' : null,
-  decoration: TextDecoration.none,
+const cPrimaryColor = Color(0xFF783E88);
+const cSecondaryColor = Color(0xFFF86F67);
+const cPrimaryGradiant = LinearGradient(
+  begin: Alignment.centerLeft,
+  end: Alignment.centerRight,
+  colors: [cPrimaryColor, cSecondaryColor],
 );
-var kTitle1Style = TextStyle(
-  fontSize: 22.0,
-  fontWeight: FontWeight.bold,
-  color: kTextPrimaryColor,
-  fontFamily: Platform.isIOS ? 'SF Pro Text' : null,
-  decoration: TextDecoration.none,
+
+const cTextPrimaryColor = Color(0xFFFFFFFF);
+const cTextSecondaryColor = Color(0xFFB1B2D1);
+const cTextTertiaryColor = Color(0xFF7C7B9F);
+
+const cButtonHighlightedPrimaryColor = Color(0xFF2D2F3C);
+const cButtonHighlightedSecondaryColor = Color(0xFF363749);
+const cButtonHighlightedGradiant = LinearGradient(
+  begin: Alignment.centerLeft,
+  end: Alignment.centerRight,
+  colors: [cButtonHighlightedPrimaryColor, cButtonHighlightedSecondaryColor],
 );
-var kCardTitleStyle = TextStyle(
-  fontFamily: Platform.isIOS ? 'SF Pro Text' : null,
-  fontWeight: FontWeight.bold,
-  color: kTextPrimaryColor,
-  fontSize: 22.0,
-  decoration: TextDecoration.none,
+
+const cButtonBackgroundColor = Color(0xFF1F212E);
+const cButtonTransparentBgColor = Color(0x88131521);
+
+const cIconPrimaryColor = Color(0xFFFFFFFF);
+const cIconSecondaryColor = Color(0x4DC4C4C4);
+const cIconTertiaryColor = Color(0xFF626374);
+const cIconGradiant = LinearGradient(
+  begin: Alignment(0, -.5),
+  end: Alignment(0, .6),
+  colors: [cIconPrimaryColor, Color(0x00FFFFFF)],
 );
-var kTitle2Style = TextStyle(
+
+const cNavbarGradient = LinearGradient(
+  begin: Alignment.topCenter,
+  end: Alignment(0.0, -0.3),
+  colors: [Color(0x00131521), Color(0xFF131521)],
+);
+
+const cTopGradient = LinearGradient(
+  begin: Alignment.topCenter,
+  end: Alignment(0.0, 0.9),
+  colors: [Color(0x00131521), Color(0xFF131521)],
+);
+
+const cCardPrimaryColor = Color(0x88000000);
+const cCardSecondaryColor = Color(0x00000000);
+const cCardBgGradiant = LinearGradient(
+  begin: Alignment.centerLeft,
+  end: Alignment.centerRight,
+  colors: [cCardPrimaryColor, cCardSecondaryColor],
+);
+
+const fPoppins = 'Poppins';
+
+//#region Titles
+var fUpperTitle = const TextStyle(
+  fontFamily: fPoppins,
+  color: cTextTertiaryColor,
   fontSize: 20.0,
-  fontWeight: FontWeight.bold,
-  color: kTextPrimaryColor,
-  fontFamily: Platform.isIOS ? 'SF Pro Text' : null,
   decoration: TextDecoration.none,
 );
-var kHeadlineLabelStyle = TextStyle(
-  fontSize: 17.0,
-  fontWeight: FontWeight.w800,
-  color: kTextPrimaryColor,
-  fontFamily: Platform.isIOS ? 'SF Pro Text' : null,
+
+var fTitleStyle = const TextStyle(
+  fontFamily: fPoppins,
+  fontWeight: FontWeight.w500,
+  color: cTextPrimaryColor,
+  fontSize: 25.0,
   decoration: TextDecoration.none,
 );
-var kSubtitleStyle = TextStyle(
+
+var fTitle2Style = const TextStyle(
+  fontFamily: fPoppins,
+  fontWeight: FontWeight.w500,
+  color: cTextPrimaryColor,
+  fontSize: 21.0,
+  decoration: TextDecoration.none,
+);
+
+var fUnderTitleStyle = const TextStyle(
+  fontFamily: fPoppins,
+  color: cTextTertiaryColor,
   fontSize: 16.0,
-  color: kTextPrimaryColor,
-  fontFamily: Platform.isIOS ? 'SF Pro Text' : null,
   decoration: TextDecoration.none,
 );
-var kBodyLabelStyle = TextStyle(
+//#endregion
+
+//#region Buttons
+// e.g. placeholder text for search field
+var fContentTextStyle = const TextStyle(
+  fontFamily: fPoppins,
+  color: cTextTertiaryColor,
   fontSize: 16.0,
-  color: kTextPrimaryColor,
-  fontFamily: Platform.isIOS ? 'SF Pro Text' : null,
   decoration: TextDecoration.none,
 );
-var kCalloutLabelStyle = TextStyle(
-  fontSize: 16.0,
-  fontWeight: FontWeight.w800,
-  color: kTextPrimaryColor,
-  fontFamily: Platform.isIOS ? 'SF Pro Text' : null,
-  decoration: TextDecoration.none,
-);
-var kSecondaryCalloutLabelStyle = TextStyle(
-  fontSize: 16.0,
-  color: kTextPrimaryColor,
-  fontFamily: Platform.isIOS ? 'SF Pro Text' : null,
-  decoration: TextDecoration.none,
-);
-var kSearchPlaceholderStyle = TextStyle(
-  fontSize: 13.0,
-  color: kTextPrimaryColor,
-  fontFamily: Platform.isIOS ? 'SF Pro Text' : null,
-  decoration: TextDecoration.none,
-);
-var kSearchTextStyle = TextStyle(
-  fontSize: 13.0,
-  color: kTextPrimaryColor,
-  fontFamily: Platform.isIOS ? 'SF Pro Text' : null,
-  decoration: TextDecoration.none,
-);
-var kCardSubtitleStyle = TextStyle(
-  fontFamily: Platform.isIOS ? 'SF Pro Text' : null,
-  color: kTextPrimaryColor,
-  fontSize: 13.0,
-  decoration: TextDecoration.none,
-);
-var kCaptionLabelStyle = TextStyle(
+
+// e.g. View more buttons
+var fSmallTextButtonStyle = const TextStyle(
+  fontFamily: fPoppins,
+  color: cTextSecondaryColor,
   fontSize: 12.0,
-  color: kTextPrimaryColor,
-  fontFamily: Platform.isIOS ? 'SF Pro Text' : null,
   decoration: TextDecoration.none,
 );
+
+var fElevatedButtonStyle = const TextStyle(
+  fontFamily: fPoppins,
+  fontWeight: FontWeight.w600,
+  color: cTextPrimaryColor,
+  fontSize: 17.0,
+  decoration: TextDecoration.none,
+);
+//#endregion
+
+//#region List
+var fListTitleStyle = const TextStyle(
+  fontFamily: fPoppins,
+  color: cTextPrimaryColor,
+  fontSize: 14.0,
+  decoration: TextDecoration.none,
+);
+
+var fListUnderTitleStyle = const TextStyle(
+  fontFamily: fPoppins,
+  fontWeight: FontWeight.w300,
+  color: cTextSecondaryColor,
+  fontSize: 10.0,
+  decoration: TextDecoration.none,
+);
+
+var fListLabelStyle = const TextStyle(
+  fontFamily: fPoppins,
+  fontWeight: FontWeight.w300,
+  color: cTextTertiaryColor,
+  fontSize: 9.0,
+  decoration: TextDecoration.none,
+);
+//#endregion
+
+//#region Card
+var fCardTitleStyle = const TextStyle(
+  fontFamily: fPoppins,
+  fontWeight: FontWeight.w600,
+  color: cTextPrimaryColor,
+  fontSize: 14.0,
+  decoration: TextDecoration.none,
+);
+
+var fCardUnderTitleStyle = const TextStyle(
+  fontFamily: fPoppins,
+  fontWeight: FontWeight.w300,
+  color: cTextPrimaryColor,
+  fontSize: 10.0,
+  decoration: TextDecoration.none,
+);
+//#endregion
+
+//#region Miscellaneous
+var fCaptionTextStyle = const TextStyle(
+  fontFamily: fPoppins,
+  fontWeight: FontWeight.w300,
+  color: cTextSecondaryColor,
+  fontSize: 14.0,
+  decoration: TextDecoration.none,
+);
+
+// e.g. search results text
+var fResultTextStyle = const TextStyle(
+  fontFamily: fPoppins,
+  color: cTextTertiaryColor,
+  fontSize: 16.0,
+  decoration: TextDecoration.none,
+);
+//#endregion
+
+//#region Song
+var fSongMinutesTextStyle = const TextStyle(
+  fontFamily: fPoppins,
+  fontWeight: FontWeight.w500,
+  color: cTextTertiaryColor,
+  fontSize: 13.0,
+  decoration: TextDecoration.none,
+);
+//#endregion

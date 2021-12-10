@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:rabble/constants.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rabble/services/audio_service/audio_service.dart';
+import 'package:rabble/services/state_controller/state_controller.dart';
+import 'package:rabble/views/main.dart';
+import 'package:rabble/views/onboarding.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+bool? onboardingSeen;
+Future<void> main() async {
+  Get.put<GetController>(GetController(), permanent: true);
+  Get.put<RabbleAudioService>(RabbleAudioService(), permanent: true);
+
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  onboardingSeen = prefs.getBool('onboardingSeen') ?? false;
   runApp(const MyApp());
 }
 
@@ -10,62 +23,57 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    return ProviderScope(
+      observers: [MainObserver()],
+      child: const AppInit(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
+class MainObserver implements ProviderObserver {
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  void didAddProvider(
+      ProviderBase provider, Object? value, ProviderContainer container) {
+    debugPrint('Added: $provider : $value(${value.runtimeType})');
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: kBackgroundColor,
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-              style: kBodyLabelStyle,
-            ),
-            Text(
-              '$_counter',
-              style: kBodyLabelStyle,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+  void didDisposeProvider(ProviderBase provider, ProviderContainer container) {
+    debugPrint('Disposed: $provider');
+  }
+
+  @override
+  void didUpdateProvider(ProviderBase provider, Object? previousValue,
+      Object? newValue, ProviderContainer container) {
+    debugPrint('Update: $provider : $newValue');
+  }
+
+  @override
+  void providerDidFail(ProviderBase<dynamic> provider, Object error,
+      StackTrace stackTrace, ProviderContainer container) {
+    // TODO: implement providerDidFail
+  }
+}
+
+class AppInit extends HookConsumerWidget {
+  static final scaffoldKey = GlobalKey<ScaffoldMessengerState>();
+
+  const AppInit({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final fetched = useState<bool>(false);
+
+    useEffect(() {
+      SharedPreferences.getInstance().then((value) async {
+        fetched.value = true;
+      });
+    }, []);
+
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Rabble',
+      home: onboardingSeen! ? MainPage() : OnboardingPage(),
     );
   }
 }
