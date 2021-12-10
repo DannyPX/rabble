@@ -50,11 +50,13 @@ class _SongRowState extends State<SongRow> {
       child: GestureDetector(
         onTap: () {
           // TODO update state with song details
-          pushNewScreen(
-            context,
-            screen: SongPage(),
-            withNavBar: false,
-          );
+          if (!live) {
+            pushNewScreen(
+              context,
+              screen: SongPage(),
+              withNavBar: false,
+            );
+          }
         },
         child: Row(
           children: [

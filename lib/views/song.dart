@@ -159,9 +159,15 @@ class _SongPageState extends State<SongPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(nowTime.inSeconds.toString(),
+                        Text(
+                            nowTime.inSeconds > 600
+                                ? nowTime.toString().substring(2, 7)
+                                : nowTime.toString().substring(3, 7),
                             style: fSongMinutesTextStyle),
-                        Text(totalDuration.inSeconds.toString(),
+                        Text(
+                            totalDuration.inSeconds > 600
+                                ? totalDuration.toString().substring(2, 7)
+                                : totalDuration.toString().substring(3, 7),
                             style: fSongMinutesTextStyle),
                       ],
                     ),
