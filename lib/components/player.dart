@@ -130,7 +130,7 @@ class _PlayerState extends State<Player> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Center(
                     child: GestureDetector(
                       onTap: () {
@@ -177,7 +177,7 @@ class _PlayerState extends State<Player> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Center(
                     //TODO Next
                     child: GestureDetector(
@@ -194,7 +194,7 @@ class _PlayerState extends State<Player> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                 ],
               ),
             ),

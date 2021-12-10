@@ -175,3 +175,13 @@ var fResultTextStyle = const TextStyle(
   decoration: TextDecoration.none,
 );
 //#endregion
+
+//#region Song
+var fSongMinutesTextStyle = const TextStyle(
+  fontFamily: fPoppins,
+  fontWeight: FontWeight.w500,
+  color: cTextTertiaryColor,
+  fontSize: 13.0,
+  decoration: TextDecoration.none,
+);
+//#endregion
