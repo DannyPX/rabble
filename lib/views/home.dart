@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rabble/components/lists/small_card_grid.dart';
 import 'package:rabble/components/lists/song_row_list.dart';
+import 'package:rabble/components/search/input_field.dart';
 import 'package:rabble/components/titles/page_title.dart';
-import 'package:rabble/components/search_input.dart';
 import 'package:rabble/components/titles/second_title.dart';
 import 'package:rabble/views/playlist.dart';
 
@@ -36,7 +36,7 @@ class HomePage extends StatelessWidget {
       children: [
         PageTitle(welcomeMessage: true, title: "Rabble"),
         const SizedBox(height: 16.0),
-        const SearchInput(),
+        const InputField(),
         const SizedBox(height: 16.0),
         const SecondTitle(title: "Your playlists", buttonTitle: "View more"),
         SmallCardGrid(list: playlists),
