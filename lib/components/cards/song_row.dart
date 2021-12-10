@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:rabble/constants.dart';
+import 'package:rabble/shared.dart';
 import 'package:rabble/views/song.dart';
 
 class SongRow extends StatefulWidget {
@@ -127,7 +128,7 @@ class _SongRowState extends State<SongRow> {
                             ),
                             const SizedBox(width: 8),
                             Text(
-                              _formatDuration(time),
+                              formatDuration(time),
                               style: fListUnderTitleStyle,
                               maxLines: 1,
                             ),
@@ -154,21 +155,6 @@ class _SongRowState extends State<SongRow> {
         ),
       ),
     );
-  }
-
-  String _formatDuration(Duration d) {
-    final totalSecs = d.inSeconds;
-    final hours = totalSecs ~/ 3600;
-    final minutes = (totalSecs % 3600) ~/ 60;
-    final seconds = totalSecs % 60;
-    final buffer = StringBuffer();
-
-    if (hours > 0) {
-      buffer.write('$hours:');
-    }
-    buffer.write('${minutes.toString().padLeft(2, '0')}:');
-    buffer.write(seconds.toString().padLeft(2, '0'));
-    return buffer.toString();
   }
 
   Image _formatImage(String image, bool live) {

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:rabble/services/audio_service/audio_enum.dart';
 import 'package:rabble/services/audio_service/audio_service.dart';
 import 'package:rabble/services/state_controller/state_controller.dart';
+import 'package:rabble/shared.dart';
 import '../constants.dart';
 import 'package:get/get.dart';
 
@@ -155,25 +156,19 @@ class _SongPageState extends State<SongPage> {
                 Column(
                   children: [
                     buildSlider(context),
-                    const SizedBox(height: 6.0),
+                    const SizedBox(height: 12.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                            nowTime.inSeconds > 600
-                                ? nowTime.toString().substring(2, 7)
-                                : nowTime.toString().substring(3, 7),
+                        Text(formatDuration(nowTime),
                             style: fSongMinutesTextStyle),
-                        Text(
-                            totalDuration.inSeconds > 600
-                                ? totalDuration.toString().substring(2, 7)
-                                : totalDuration.toString().substring(3, 7),
+                        Text(formatDuration(totalDuration),
                             style: fSongMinutesTextStyle),
                       ],
                     ),
                   ],
                 ),
-                const SizedBox(height: 42.0),
+                const SizedBox(height: 32.0),
                 // PLAY BUTTONS
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
