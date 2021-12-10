@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
+import '../../providers.dart';
 import '../../shared.dart';
 import '../../constants.dart';
 
@@ -13,7 +13,7 @@ class SuggestionList extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final yt = YoutubeExplode();
+    final yt = ref.watch(ytProvider);
     final debQuery = useDebounce(query, const Duration(milliseconds: 200));
 
     final suggestions = useMemoFuture(

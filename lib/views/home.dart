@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rabble/components/lists/small_card_grid.dart';
 import 'package:rabble/components/lists/song_row_list.dart';
-import 'package:rabble/components/search/input_field.dart';
+import 'package:rabble/components/search/search_box.dart';
 import 'package:rabble/components/titles/page_title.dart';
 import 'package:rabble/components/titles/second_title.dart';
 import 'package:rabble/views/playlist.dart';

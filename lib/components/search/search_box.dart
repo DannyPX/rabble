@@ -56,5 +56,7 @@ class _SearchBoxState extends State<SearchBox> {
   _changeQuery(string) {
     setState(() => query = string);
     _txt.text = query;
+    _txt.selection =
+        TextSelection.fromPosition(TextPosition(offset: _txt.text.length));
   }
 }

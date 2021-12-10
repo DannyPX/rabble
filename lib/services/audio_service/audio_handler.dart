@@ -73,7 +73,16 @@ class RabbleAudioHandler extends BaseAudioHandler
     var content = await rootBundle.load(mediaItem.extras!['url']);
     final directory = await getApplicationDocumentsDirectory();
     print(directory.path);
-    var file = File("${directory.path}/${mediaItem.id}");
+    final Directory _appDocDirFolder =
+        Directory('${directory.path}/downloaded/');
+
+    if (await _appDocDirFolder.exists()) {
+    } else {
+      //if folder not exists create folder and then return its path
+      await _appDocDirFolder.create(recursive: true);
+    }
+
+    var file = File("${directory.path}/downloaded/${mediaItem.id}");
     file.writeAsBytesSync(content.buffer.asUint8List());
 
     return AudioSource.uri(
