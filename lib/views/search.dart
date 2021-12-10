@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rabble/components/search/input_field.dart';
+import 'package:rabble/components/search/search_box.dart';
 import 'package:rabble/components/titles/page_title.dart';
 
 class SearchPage extends StatelessWidget {
