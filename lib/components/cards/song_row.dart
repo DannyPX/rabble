@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:rabble/constants.dart';
+import 'package:rabble/views/song.dart';
 
 class SongRow extends StatefulWidget {
   const SongRow({
@@ -45,95 +47,109 @@ class _SongRowState extends State<SongRow> {
           bottom: BorderSide(color: cTextTertiaryColor),
         ),
       ),
-      child: Row(
-        children: [
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 10,
-              ),
-              child: Expanded(
-                child: Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: AspectRatio(
-                        aspectRatio: 1 / 1,
-                        child: _formatImage(imageUrl, live),
-                      ),
-                    ),
-                    //TODO Add play button
-                  ],
+      child: GestureDetector(
+        onTap: () {
+          // TODO update state with song details
+          pushNewScreen(
+            context,
+            screen: SongPage(),
+            withNavBar: false,
+          );
+        },
+        child: Row(
+          children: [
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 10,
                 ),
-                flex: 2,
+                child: Expanded(
+                  child: Stack(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: AspectRatio(
+                          aspectRatio: 1 / 1,
+                          child: _formatImage(imageUrl, live),
+                        ),
+                      ),
+                      //TODO Add play button
+                    ],
+                  ),
+                  flex: 2,
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: Container(
-              child: Column(
-                children: [
-                  Expanded(
-                    flex: 5,
-                    child: ListTile(
-                      title: Text(
-                        title,
-                        style: fListTitleStyle,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      subtitle: Text(
-                        subtitle,
-                        style: fListUnderTitleStyle,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+            Expanded(
+              child: Container(
+                child: Column(
+                  children: [
+                    Expanded(
+                      flex: 5,
+                      child: ListTile(
+                        title: Text(
+                          title,
+                          style: fListTitleStyle,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        subtitle: Text(
+                          subtitle,
+                          style: fListUnderTitleStyle,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    flex: 5,
-                    child: ListTile(
-                      title: Row(
-                        children: [
-                          const Icon(
-                            Icons.remove_red_eye_outlined,
-                            color: cTextTertiaryColor,
-                          ),
-                          const SizedBox(width: 8),
-                          SizedBox(
-                            width: 35,
-                            child: Text(
-                              views.toString(),
+                    Expanded(
+                      flex: 5,
+                      child: ListTile(
+                        title: Row(
+                          children: [
+                            const Icon(
+                              Icons.remove_red_eye_outlined,
+                              color: cTextTertiaryColor,
+                            ),
+                            const SizedBox(width: 8),
+                            SizedBox(
+                              width: 35,
+                              child: Text(
+                                views.toString(),
+                                style: fListUnderTitleStyle,
+                                maxLines: 1,
+                              ),
+                            ),
+                            const Icon(
+                              Icons.access_time,
+                              color: cTextTertiaryColor,
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              _formatDuration(time),
                               style: fListUnderTitleStyle,
                               maxLines: 1,
                             ),
-                          ),
-                          const Icon(
-                            Icons.access_time,
-                            color: cTextTertiaryColor,
-                          ),
-                          const SizedBox(width: 8),
-                          Text(
-                            _formatDuration(time),
-                            style: fListUnderTitleStyle,
-                            maxLines: 1,
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-          const Center(
-            //TODO Add to playlist
-            child: Icon(
-              Icons.playlist_add,
-              color: cTextTertiaryColor,
+            Center(
+              child: GestureDetector(
+                onTap: () {
+                  print("Add to playlist");
+                },
+                child: const Icon(
+                  Icons.playlist_add,
+                  color: cTextTertiaryColor,
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
