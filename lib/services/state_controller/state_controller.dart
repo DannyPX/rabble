@@ -12,6 +12,8 @@ class GetController extends GetxController {
   List<MediaItem> currentPlaylist = List.empty();
   bool isFirst = true;
   bool isLast = false;
+  bool isLoop = false;
+  bool isShuffle = false;
 
   PersistentTabController controller = PersistentTabController(initialIndex: 0);
 }

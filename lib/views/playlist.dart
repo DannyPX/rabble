@@ -50,7 +50,7 @@ class PlaylistPage extends StatelessWidget {
                   Hero(
                     tag: title + "gradient",
                     child: Container(
-                      height: 150.0,
+                      height: 152.0,
                       decoration: const BoxDecoration(
                         gradient: cTopGradient,
                       ),

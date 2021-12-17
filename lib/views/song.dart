@@ -25,10 +25,14 @@ class _SongPageState extends State<SongPage> {
       checkDuration(_stateController.currentMediaItem.duration);
   bool get isFirst => _stateController.isFirst;
   bool get isLast => _stateController.isLast;
+  bool get isShuffle => _stateController.isShuffle;
+  bool get isLoop => _stateController.isLoop;
   bool isPlaying = false;
   double iconSize = 35;
   Duration nowTime = Duration();
   IconData currentIcon = Icons.play_arrow_rounded;
+  Color loopIconColor = cIconTertiaryColor;
+  Color shuffleIconColor = cIconTertiaryColor;
 
   Duration checkDuration(duration) {
     if (duration == null) return const Duration(seconds: 1);
@@ -37,6 +41,16 @@ class _SongPageState extends State<SongPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (_stateController.isLoop) {
+      setState(() => loopIconColor = cIconPrimaryColor);
+    } else {
+      setState(() => loopIconColor = cIconTertiaryColor);
+    }
+    if (_stateController.isShuffle) {
+      setState(() => shuffleIconColor = cIconPrimaryColor);
+    } else {
+      setState(() => shuffleIconColor = cIconTertiaryColor);
+    }
     AudioService.position.listen((Duration position) {
       setState(() => nowTime = position);
       switch (_stateController.isPlaying) {
@@ -55,6 +69,8 @@ class _SongPageState extends State<SongPage> {
     void update() {
       setState(() {});
     }
+
+    double screenHeight = MediaQuery.of(context).size.height;
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light,
@@ -132,16 +148,19 @@ class _SongPageState extends State<SongPage> {
                 ),
                 const SizedBox(height: 38.0),
                 // SONG IMAGE
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Expanded(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12.0),
-                      child: AspectRatio(
-                        aspectRatio: 1 / 1,
-                        child: Image(
-                          image: AssetImage(imageUrl),
-                          fit: BoxFit.cover,
+                Center(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    height: screenHeight * 0.35,
+                    child: Expanded(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12.0),
+                        child: AspectRatio(
+                          aspectRatio: 1 / 1,
+                          child: Image(
+                            image: AssetImage(imageUrl),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
@@ -255,7 +274,10 @@ class _SongPageState extends State<SongPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          // GO TO THE PLAYLIST THAT THIS SONG IS IN
+                          Get.back();
+                        },
                         child: const Icon(
                           Icons.format_list_bulleted_rounded,
                           size: 28.0,
@@ -271,11 +293,14 @@ class _SongPageState extends State<SongPage> {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: () {},
-                        child: const Icon(
+                        onPressed: () {
+                          _stateController.isLoop = !isLoop;
+                          update();
+                        },
+                        child: Icon(
                           Icons.repeat_rounded,
                           size: 28.0,
-                          color: cIconPrimaryColor,
+                          color: loopIconColor,
                         ),
                         style: ElevatedButton.styleFrom(
                           shape: const CircleBorder(),
@@ -287,11 +312,14 @@ class _SongPageState extends State<SongPage> {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: () {},
-                        child: const Icon(
+                        onPressed: () {
+                          _stateController.isShuffle = !isShuffle;
+                          update();
+                        },
+                        child: Icon(
                           Icons.shuffle_rounded,
                           size: 28.0,
-                          color: cIconTertiaryColor,
+                          color: shuffleIconColor,
                         ),
                         style: ElevatedButton.styleFrom(
                           shape: const CircleBorder(),
