@@ -51,7 +51,7 @@ class MainObserver implements ProviderObserver {
   @override
   void providerDidFail(ProviderBase<dynamic> provider, Object error,
       StackTrace stackTrace, ProviderContainer container) {
-    // TODO: implement providerDidFail
+    debugPrint('Fail: $provider : $error');
   }
 }
 
