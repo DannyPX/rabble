@@ -36,7 +36,6 @@ class Search extends StatelessWidget {
 
   Widget build(BuildContext context) {
     final videos = service.videos;
-    print(videos);
     return SongRowList(list: videos, live: true);
   }
 }

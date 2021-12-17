@@ -39,6 +39,7 @@ class SongRowList extends StatelessWidget {
             views: video.viewCount,
             time: video.duration,
             live: live,
+            id: video.id,
           );
         }
       },

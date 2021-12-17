@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:audio_service/audio_service.dart';
 import 'package:get/get.dart';
 import 'package:rabble/services/state_controller/state_controller.dart';
 import 'audio_handler.dart';
 import 'audio_enum.dart';
+import 'package:path_provider/path_provider.dart';
 
 class RabbleAudioService {
   late AudioHandler _audioHandler;
@@ -21,6 +24,16 @@ class RabbleAudioService {
         androidNotificationOngoing: true,
       ),
     );
+
+    final directory = await getApplicationDocumentsDirectory();
+    final Directory _appDocDirFolder =
+        Directory('${directory.path}/downloaded/');
+
+    if (await _appDocDirFolder.exists()) {
+    } else {
+      //if folder not exists create folder and then return its path
+      await _appDocDirFolder.create(recursive: true);
+    }
 
     _listenToPlaybackState();
     _listenToMediaItem();
@@ -53,6 +66,15 @@ class RabbleAudioService {
   }
 
   Future<void> _loadPlaylist() async {
+    List<FileSystemEntity> _folders;
+    final directory = await getApplicationDocumentsDirectory();
+    final dir = directory.path;
+    String playlistDir = '$dir/downloaded/';
+    final myDir = Directory(playlistDir);
+    _folders = myDir.listSync(recursive: true, followLinks: false);
+
+    print(_folders);
+
     var item1 = MediaItem(
         id: 'SoundHelix-Song-1.mp3',
         album: '-',

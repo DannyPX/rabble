@@ -73,7 +73,9 @@ class AppInit extends HookConsumerWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Rabble',
-      home: onboardingSeen! ? MainPage() : OnboardingPage(),
+      home: Scaffold(
+        body: onboardingSeen! ? MainPage() : OnboardingPage(),
+      ),
     );
   }
 }

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:rabble/constants.dart';
+import 'package:rabble/models/query_video.dart';
+import 'package:rabble/services/download/download_service.dart';
 import 'package:rabble/shared.dart';
 import 'package:rabble/views/song.dart';
 
 class SongRow extends StatefulWidget {
-  const SongRow({
+  SongRow({
     Key? key,
     required this.title,
     required this.subtitle,
@@ -13,6 +15,7 @@ class SongRow extends StatefulWidget {
     required this.views,
     required this.time,
     required this.live,
+    this.id,
   }) : super(key: key);
 
   final String title;
@@ -21,6 +24,7 @@ class SongRow extends StatefulWidget {
   final Duration time;
   final String imageUrl;
   final bool live;
+  String? id;
 
   @override
   State<SongRow> createState() => _SongRowState();
@@ -38,6 +42,10 @@ class _SongRowState extends State<SongRow> {
   Duration get time => widget.time;
 
   bool get live => widget.live;
+
+  String? get id => widget.id;
+
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -143,10 +151,31 @@ class _SongRowState extends State<SongRow> {
             Center(
               child: GestureDetector(
                 onTap: () {
+                  if (live && !loading) {
+                    download(
+                      QueryVideo(
+                        title,
+                        id!,
+                        subtitle,
+                        time,
+                        imageUrl,
+                        views,
+                      ),
+                      context,
+                    );
+
+                    setState(() {
+                      loading = true;
+                    });
+                  }
                   print("Add to playlist");
                 },
-                child: const Icon(
-                  Icons.playlist_add,
+                child: Icon(
+                  live
+                      ? (loading
+                          ? Icons.circle_outlined
+                          : Icons.download_rounded)
+                      : Icons.playlist_add,
                   color: cTextTertiaryColor,
                 ),
               ),
@@ -169,5 +198,17 @@ class _SongRowState extends State<SongRow> {
         fit: BoxFit.cover,
       );
     }
+  }
+
+  Future<void> download(QueryVideo video, BuildContext context) async {
+    await downloadAudioStream(video).then((value) {
+      if (value) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(getSnackBar('${video.title} downloaded'));
+        setState(() {
+          loading = false;
+        });
+      }
+    });
   }
 }

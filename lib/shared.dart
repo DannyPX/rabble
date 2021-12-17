@@ -32,3 +32,9 @@ String formatDuration(Duration d) {
   buffer.write(seconds.toString().padLeft(2, '0'));
   return buffer.toString();
 }
+
+SnackBar getSnackBar(String content) {
+  return SnackBar(
+    content: Text(content),
+  );
+}
