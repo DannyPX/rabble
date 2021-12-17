@@ -4,6 +4,8 @@ import 'package:rabble/components/lists/song_row_list.dart';
 import 'package:rabble/components/search/search_box.dart';
 import 'package:rabble/components/titles/page_title.dart';
 import 'package:rabble/components/titles/second_title.dart';
+import 'package:rabble/layouts/main.dart';
+import 'package:rabble/views/library.dart';
 import 'package:rabble/views/playlist.dart';
 
 class HomePage extends StatelessWidget {
@@ -38,10 +40,19 @@ class HomePage extends StatelessWidget {
         const SizedBox(height: 16.0),
         const SearchBox(),
         const SizedBox(height: 16.0),
-        const SecondTitle(title: "Your playlists", buttonTitle: "View more"),
+        SecondTitle(
+          title: "Your playlists",
+          hasNavigation: true,
+          buttonTitle: "View more",
+          navigateNavbar: true,
+          navbarIndex: 2,
+        ),
         SmallCardGrid(list: playlists),
         const SizedBox(height: 16.0),
-        const SecondTitle(title: "Recently listened", buttonTitle: ""),
+        SecondTitle(
+          title: "Recently listened",
+          hasNavigation: false,
+        ),
         SongRowList(list: songs, live: false),
       ],
     );

@@ -34,7 +34,11 @@ class LibraryPage extends StatelessWidget {
         const SizedBox(height: 16.0),
         LargeCardList(list: libaryList),
         const SizedBox(height: 16.0),
-        const SecondTitle(title: "Playlists", buttonTitle: "Create playlist"),
+        SecondTitle(
+          title: "Playlists",
+          hasNavigation: true,
+          buttonTitle: "Create playlist",
+        ),
         LargeCardList(list: playlists),
       ],
     );
