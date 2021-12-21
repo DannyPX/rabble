@@ -4,8 +4,6 @@ import 'package:rabble/components/lists/song_row_list.dart';
 import 'package:rabble/components/search/search_box.dart';
 import 'package:rabble/components/titles/page_title.dart';
 import 'package:rabble/components/titles/second_title.dart';
-import 'package:rabble/layouts/main.dart';
-import 'package:rabble/views/library.dart';
 import 'package:rabble/views/playlist.dart';
 
 class HomePage extends StatelessWidget {

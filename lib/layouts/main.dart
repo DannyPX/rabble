@@ -29,7 +29,10 @@ class MainLayout extends StatelessWidget {
             child: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.only(
-                    left: 20.0, right: 20.0, bottom: 83.0),
+                  left: 20.0,
+                  right: 20.0,
+                  bottom: 150.0,
+                ),
                 child: page,
               ),
             ),

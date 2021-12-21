@@ -16,44 +16,55 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          PersistentTabView(
-            context,
-            controller: _stateController.controller,
-            screens: _pages(),
-            items: _navBarItems(),
-            navBarHeight: 55.0,
-            confineInSafeArea: true,
-            backgroundColor: Colors.transparent,
-            handleAndroidBackButtonPress: true,
-            resizeToAvoidBottomInset: false,
-            stateManagement: true,
-            hideNavigationBarWhenKeyboardShows: true,
-            popAllScreensOnTapOfSelectedTab: true,
-            popActionScreens: PopActionScreensType.all,
-            navBarStyle: NavBarStyle.style8,
-            screenTransitionAnimation: const ScreenTransitionAnimation(
-              animateTabTransition: true,
-              curve: Curves.easeInOutCirc,
-              duration: Duration(milliseconds: 350),
+      body: GestureDetector(
+        onHorizontalDragEnd: (DragEndDetails details) {
+          if (details.primaryVelocity! < 0 &&
+              _stateController.controller.index != _navBarItems().length - 1) {
+            _stateController.controller.index++;
+          } else if (details.primaryVelocity! > 0 &&
+              _stateController.controller.index != 0) {
+            _stateController.controller.index--;
+          }
+        },
+        child: Stack(
+          children: [
+            PersistentTabView(
+              context,
+              controller: _stateController.controller,
+              screens: _pages(),
+              items: _navBarItems(),
+              navBarHeight: 55.0,
+              confineInSafeArea: true,
+              backgroundColor: Colors.transparent,
+              handleAndroidBackButtonPress: true,
+              resizeToAvoidBottomInset: false,
+              stateManagement: true,
+              hideNavigationBarWhenKeyboardShows: true,
+              popAllScreensOnTapOfSelectedTab: true,
+              popActionScreens: PopActionScreensType.all,
+              navBarStyle: NavBarStyle.style8,
+              screenTransitionAnimation: const ScreenTransitionAnimation(
+                animateTabTransition: true,
+                curve: Curves.easeInOutCirc,
+                duration: Duration(milliseconds: 350),
+              ),
             ),
-          ),
-          SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: 10.0, right: 10.0, bottom: 60.0),
-                  child: Player(),
-                ),
-              ],
+            SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 10.0, right: 10.0, bottom: 60.0),
+                    child: Player(),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
