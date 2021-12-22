@@ -69,8 +69,8 @@ class _PlayerState extends State<Player> {
           children: [
             Container(
               height: 75,
-              decoration: BoxDecoration(
-                color: Color(0x44FFFFFF),
+              decoration: const BoxDecoration(
+                color: cSecondaryBackgroundColor,
               ),
               child: Row(
                 children: [
@@ -213,7 +213,7 @@ class _PlayerState extends State<Player> {
         data: SliderTheme.of(context).copyWith(
           thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 0),
           trackHeight: 5,
-          trackShape: CustomTrackShape(
+          trackShape: const CustomTrackShape(
               gradient: cPrimaryGradiant, darkenInactive: true),
         ),
         child: Slider(

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:rabble/constants.dart';
 
-class LargeCard extends StatefulWidget {
+class LargeCard extends StatelessWidget {
   const LargeCard({
     Key? key,
     required this.title,
@@ -14,70 +16,89 @@ class LargeCard extends StatefulWidget {
   final int songAmount;
   final Widget playlistNavigation;
   final String imageUrl;
-
-  @override
-  State<LargeCard> createState() => _LargeCardState();
-}
-
-class _LargeCardState extends State<LargeCard> {
-  String get title => widget.title;
-  int get songAmount => widget.songAmount;
-  Widget get playlistNavigation => widget.playlistNavigation;
-  String get imageUrl => widget.imageUrl;
-
-  double get circleSize => 25;
+  final double circleSize = 20;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => playlistNavigation,
-              fullscreenDialog: true,
-            ));
+        pushNewScreen(
+          context,
+          screen: playlistNavigation,
+          withNavBar: true,
+        );
       },
-      child: Container(
-          height: 100,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                imageUrl,
-              ),
-              fit: BoxFit.cover,
-            ),
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: Row(children: [
-            Expanded(
-              child: Column(children: [
-                Expanded(
-                    flex: 5,
-                    child: Center(
-                      child: ListTile(
-                        title: Text(
-                          title,
-                          style: fCardTitleStyle,
-                        ),
-                        subtitle: Text(songAmount.toString() + ' Songs',
-                            style: fCardUnderTitleStyle),
-                      ),
-                    )),
-              ]),
-            ),
-            Center(
-              child: CircleAvatar(
-                backgroundColor: cButtonTransparentBgColor,
-                radius: circleSize,
-                child: const Icon(
-                  Icons.chevron_right,
-                  color: cTextPrimaryColor,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12.0),
+        child: SizedBox(
+          height: 100.0,
+          child: Stack(
+            children: [
+              Hero(
+                tag: title + imageUrl + "library",
+                child: Image.asset(
+                  imageUrl,
+                  height: 100,
+                  width: Get.width,
+                  fit: BoxFit.cover,
                 ),
               ),
-            ),
-            SizedBox(width: circleSize)
-          ])),
+              Hero(
+                tag: title + "gradient" + "library",
+                child: Container(
+                  height: 150.0,
+                  decoration: const BoxDecoration(
+                    gradient: RadialGradient(
+                      radius: 2.0,
+                      colors: [
+                        Color(0x00131521),
+                        Color(0xBB131521),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 100,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Expanded(
+                            flex: 5,
+                            child: Center(
+                              child: ListTile(
+                                title: Text(
+                                  title,
+                                  style: fCardTitleStyle,
+                                ),
+                                subtitle: Text(songAmount.toString() + ' Songs',
+                                    style: fCardUnderTitleStyle),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Center(
+                      child: CircleAvatar(
+                        backgroundColor: cButtonTransparentBgColor,
+                        radius: circleSize,
+                        child: const Icon(
+                          Icons.chevron_right,
+                          color: cTextPrimaryColor,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: circleSize)
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

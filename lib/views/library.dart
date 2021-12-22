@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rabble/components/lists/large_card_list.dart';
 import 'package:rabble/components/titles/page_title.dart';
 import 'package:rabble/components/titles/second_title.dart';
-import 'package:rabble/views/search.dart';
+import 'package:rabble/views/playlist.dart';
 
 class LibraryPage extends StatelessWidget {
   LibraryPage({Key? key}) : super(key: key);
@@ -12,8 +12,9 @@ class LibraryPage extends StatelessWidget {
       (index) => {
             "title": "title $index",
             "songAmount": 123,
-            "playlistNavigation": const SearchPage(),
-            "imageUrl": "assets/images/onboarding.jpg",
+            "playlistNavigation": PlaylistPage(
+                title: "title $index", imageUrl: "assets/images/stromae.jpg"),
+            "imageUrl": "assets/images/stromae.jpg",
           }).toList();
 
   final List<Map> playlists = List.generate(
@@ -21,8 +22,9 @@ class LibraryPage extends StatelessWidget {
       (index) => {
             "title": "title $index",
             "songAmount": 123,
-            "playlistNavigation": const SearchPage(),
-            "imageUrl": "assets/images/onboarding.jpg",
+            "playlistNavigation": PlaylistPage(
+                title: "title $index", imageUrl: "assets/images/stromae.jpg"),
+            "imageUrl": "assets/images/stromae.jpg",
           }).toList();
 
   @override

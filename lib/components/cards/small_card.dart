@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:rabble/constants.dart';
 
-class SmallCard extends StatefulWidget {
+class SmallCard extends StatelessWidget {
   const SmallCard({
     Key? key,
     required this.title,
@@ -16,16 +16,6 @@ class SmallCard extends StatefulWidget {
   final String subtitle;
   final Widget playlistNavigation;
   final String imageUrl;
-
-  @override
-  State<SmallCard> createState() => _SmallCardState();
-}
-
-class _SmallCardState extends State<SmallCard> {
-  String get title => widget.title;
-  String get subtitle => widget.subtitle;
-  Widget get playlistNavigation => widget.playlistNavigation;
-  String get imageUrl => widget.imageUrl;
 
   @override
   Widget build(BuildContext context) {
