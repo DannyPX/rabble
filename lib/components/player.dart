@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:audio_service/audio_service.dart';
@@ -86,8 +87,8 @@ class _PlayerState extends State<Player> {
                           aspectRatio: 1 / 1,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(8.0),
-                            child: Image(
-                              image: AssetImage(imageUrl),
+                            child: Image.file(
+                              File(imageUrl),
                               fit: BoxFit.cover,
                             ),
                           ),

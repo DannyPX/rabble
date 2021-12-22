@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:audio_service/audio_service.dart';
 import 'package:get/get.dart';
+import 'package:rabble/models/video_metadata.dart';
 import 'package:rabble/services/state_controller/state_controller.dart';
 import 'audio_handler.dart';
 import 'audio_enum.dart';
@@ -37,8 +39,9 @@ class RabbleAudioService {
 
     _listenToPlaybackState();
     _listenToMediaItem();
-    _loadPlaylist();
+    loadPlaylist('downloaded');
     _listenToChangesInSong();
+    _listenToChangesInPlaylist();
   }
 
   Future<void> play() async {
@@ -65,52 +68,67 @@ class RabbleAudioService {
     _audioHandler.skipToNext();
   }
 
-  Future<void> _loadPlaylist() async {
+  Future<void> loadPlaylist(String playlistName) async {
+    _stateController.currentPlaylistName = playlistName;
     List<FileSystemEntity> _folders;
     final directory = await getApplicationDocumentsDirectory();
     final dir = directory.path;
-    String playlistDir = '$dir/downloaded/';
-    final myDir = Directory(playlistDir);
-    _folders = myDir.listSync(recursive: true, followLinks: false);
+    String playlistDir = '$dir/$playlistName/';
+    Directory myDir = Directory(playlistDir);
+    _folders = await myDir.list(recursive: false, followLinks: false).toList();
+    _audioHandler.addQueueItems(await _loadDirectoryPlaylist(_folders));
+  }
 
-    print(_folders);
+  Future<List<MediaItem>> _loadDirectoryPlaylist(
+      List<FileSystemEntity> folders) async {
+    List<MediaItem> playlist = [];
+    for (var element in folders) {
+      if (element is Directory) {
+        Directory currentDir = element;
+        File currentFile = File(currentDir.path + '/metadata.json');
+        final contents = await currentFile.readAsString();
+        Map<String, dynamic> metadataMap = json.decode(contents);
+        VideoMetadata metadata = VideoMetadata.fromJson(metadataMap);
 
-    var item1 = MediaItem(
-        id: 'SoundHelix-Song-1.mp3',
+        playlist.add(MediaItem(
+            id: metadata.id,
+            album: '-',
+            title: metadata.title,
+            artist: metadata.author,
+            artUri: Uri.file(currentDir.path + '/thumbnail.jpg'),
+            extras: {
+              'url': currentDir.path + '/audio.webm',
+              'imageUrl': currentDir.path + '/thumbnail.jpg'
+            }));
+      }
+    }
+    return playlist;
+  }
+
+  Future<void> addToQueue(String id, String playlist) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final dir = directory.path;
+    String songDir = '$dir/$playlist/$id';
+    _audioHandler
+        .addQueueItems(List.of([await _loadDirectoryMediaItem(songDir)]));
+  }
+
+  Future<MediaItem> _loadDirectoryMediaItem(String songDir) async {
+    File currentFile = File(songDir + '/metadata.json');
+    final contents = await currentFile.readAsString();
+    Map<String, dynamic> metadataMap = json.decode(contents);
+    VideoMetadata metadata = VideoMetadata.fromJson(metadataMap);
+
+    return MediaItem(
+        id: metadata.id,
         album: '-',
-        title: 'Song 1',
-        artist: 'Artist 1',
-        artUri: Uri.parse('https://example.com/album.jpg'),
+        title: metadata.title,
+        artist: metadata.author,
+        artUri: Uri.file(songDir + '/thumbnail.jpg'),
         extras: {
-          'url': 'assets/audio/SoundHelix-Song-1.mp3',
-          'imageUrl': 'assets/images/onboarding.jpg'
+          'url': songDir + '/audio.webm',
+          'imageUrl': songDir + '/thumbnail.jpg'
         });
-
-    var item2 = MediaItem(
-        id: 'SoundHelix-Song-2.mp3',
-        album: '-',
-        title: 'Song 2',
-        artist: 'Artist 2',
-        artUri: Uri.parse('https://example.com/album.jpg'),
-        extras: {
-          'url': 'assets/audio/SoundHelix-Song-2.mp3',
-          'imageUrl': 'assets/images/onboarding.jpg'
-        });
-
-    var item3 = MediaItem(
-        id: 'SoundHelix-Song-3.mp3',
-        album: '-',
-        title: 'Song 3',
-        artist: 'Artist 3',
-        artUri: Uri.parse('https://example.com/album.jpg'),
-        extras: {
-          'url': 'assets/audio/SoundHelix-Song-3.mp3',
-          'imageUrl': 'assets/images/onboarding.jpg'
-        });
-
-    var list = [item1, item2, item3];
-
-    _audioHandler.addQueueItems(list);
   }
 
   void _listenToPlaybackState() {

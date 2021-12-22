@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:rabble/constants.dart';
 import 'package:rabble/models/query_video.dart';
+import 'package:rabble/services/audio_service/audio_service.dart';
 import 'package:rabble/services/download/download_service.dart';
+import 'package:rabble/services/state_controller/state_controller.dart';
 import 'package:rabble/shared.dart';
 import 'package:rabble/views/song.dart';
 
@@ -31,6 +34,8 @@ class SongRow extends StatefulWidget {
 }
 
 class _SongRowState extends State<SongRow> {
+  final _stateController = Get.find<GetController>();
+
   String get title => widget.title;
 
   String get subtitle => widget.subtitle;
@@ -201,8 +206,12 @@ class _SongRowState extends State<SongRow> {
   }
 
   Future<void> download(QueryVideo video, BuildContext context) async {
+    final _audioHandler = Get.find<RabbleAudioService>();
     await downloadAudioStream(video).then((value) {
       if (value) {
+        if (_stateController.currentPlaylistName == 'downloaded') {
+          _audioHandler.addToQueue(video.id, 'downloaded');
+        }
         ScaffoldMessenger.of(context)
             .showSnackBar(getSnackBar('${video.title} downloaded'));
         setState(() {

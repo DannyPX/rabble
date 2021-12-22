@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -177,8 +179,8 @@ class _SongPageState extends State<SongPage> {
                             borderRadius: BorderRadius.circular(12.0),
                             child: AspectRatio(
                               aspectRatio: 1 / 1,
-                              child: Image(
-                                image: AssetImage(imageUrl),
+                              child: Image.file(
+                                File(imageUrl),
                                 fit: BoxFit.cover,
                               ),
                             ),

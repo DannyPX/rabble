@@ -10,6 +10,7 @@ class GetController extends GetxController {
   MediaItem currentMediaItem = MediaItem(
       id: '0', title: 'Track Test', artist: '', extras: {'imageUrl': ''});
   List<MediaItem> currentPlaylist = List.empty();
+  String currentPlaylistName = '';
   bool isFirst = true;
   bool isLast = false;
   bool isLoop = false;

@@ -1,9 +1,5 @@
-import 'dart:io';
-
 import 'package:audio_service/audio_service.dart';
-import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:path_provider/path_provider.dart';
 
 class RabbleAudioHandler extends BaseAudioHandler
     with
@@ -62,6 +58,7 @@ class RabbleAudioHandler extends BaseAudioHandler
   }
 
   Future<void> _loadEmptyPlaylist() async {
+    _playlist.clear();
     try {
       await player.setAudioSource(_playlist);
     } catch (e) {
@@ -70,15 +67,8 @@ class RabbleAudioHandler extends BaseAudioHandler
   }
 
   Future<UriAudioSource> _createAudioSource(MediaItem mediaItem) async {
-    var content = await rootBundle.load(mediaItem.extras!['url']);
-    final directory = await getApplicationDocumentsDirectory();
-    print(directory.path);
-
-    var file = File("${directory.path}/downloaded/${mediaItem.id}");
-    file.writeAsBytesSync(content.buffer.asUint8List());
-
     return AudioSource.uri(
-      Uri.file(file.path),
+      Uri.file(mediaItem.extras!['url']),
       tag: mediaItem,
     );
   }
