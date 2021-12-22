@@ -15,84 +15,107 @@ class OnboardingPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: cBackgroundColor,
       body: Center(
-        child: Column(
+        child: Stack(
           children: [
-            Stack(
-              children: <Widget>[
-                Expanded(
-                  child: Image.asset(
-                    'assets/images/onboarding.jpg',
-                    fit: BoxFit.cover,
-                    height: MediaQuery.of(context).size.height * .5,
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * .43,
-                  ),
-                  child: SvgPicture.asset(
-                    'assets/logos/rabble.svg',
-                  ),
-                ),
-              ],
-            ),
-            const Spacer(),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Text(
-                "Music expresses that which cannot be put into words and that which cannot remain silent.",
-                style: fTitle2Style,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            const Spacer(),
-            const Spacer(),
-            Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
+            SizedBox(
+              height: Get.height,
+              width: Get.width,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Rabble does not require you to create an account, all music is stored on your device.",
-                    style: fCaptionTextStyle,
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 17.0),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.all(0.0),
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                      ),
-                      child: Ink(
-                        decoration: BoxDecoration(
-                          gradient: cPrimaryGradiant,
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 14.0),
-                          width: double.infinity,
-                          child: Text(
-                            "Let's get started",
-                            textAlign: TextAlign.center,
-                            style: fElevatedButtonStyle,
-                          ),
-                        ),
-                      ),
-                      onPressed: () async {
-                        SharedPreferences prefs =
-                            await SharedPreferences.getInstance();
-                        await prefs.setBool('onboardingSeen', true);
-                        Get.off(MainPage());
-                      },
+                  RotatedBox(
+                    quarterTurns: 3,
+                    child: SvgPicture.asset(
+                      'assets/logos/circles.svg',
+                      width: 500.0,
+                      height: 250.0,
                     ),
                   ),
                 ],
               ),
+            ),
+            Column(
+              children: [
+                Stack(
+                  children: <Widget>[
+                    Expanded(
+                      child: Image.asset(
+                        'assets/images/onboarding.jpg',
+                        fit: BoxFit.cover,
+                        height: MediaQuery.of(context).size.height * .5,
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * .43,
+                      ),
+                      child: SvgPicture.asset(
+                        'assets/logos/rabble.svg',
+                      ),
+                    ),
+                  ],
+                ),
+                const Spacer(),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: Text(
+                    "Music expresses that which cannot be put into words and that which cannot remain silent.",
+                    style: fTitle2Style,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const Spacer(),
+                const Spacer(),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 24.0, vertical: 24.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        "Rabble does not require you to create an account, all music is stored on your device.",
+                        style: fCaptionTextStyle,
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 17.0),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.all(0.0),
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
+                          child: Ink(
+                            decoration: BoxDecoration(
+                              gradient: cPrimaryGradiant,
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            child: Container(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 14.0),
+                              width: double.infinity,
+                              child: Text(
+                                "Let's get started",
+                                textAlign: TextAlign.center,
+                                style: fElevatedButtonStyle,
+                              ),
+                            ),
+                          ),
+                          onPressed: () async {
+                            SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
+                            await prefs.setBool('onboardingSeen', true);
+                            Get.off(MainPage());
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         ),

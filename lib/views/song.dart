@@ -1,6 +1,7 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:rabble/services/audio_service/audio_enum.dart';
 import 'package:rabble/services/audio_service/audio_service.dart';
 import 'package:rabble/services/state_controller/state_controller.dart';
@@ -77,281 +78,306 @@ class _SongPageState extends State<SongPage> {
       child: Scaffold(
         extendBody: true,
         backgroundColor: cBackgroundColor,
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // TOP BUTTONS
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        Get.back();
-                      },
-                      child: const Icon(
-                        Icons.arrow_back,
-                        color: cIconPrimaryColor,
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        shape: const CircleBorder(),
-                        padding: EdgeInsets.zero,
-                        fixedSize: const Size(50.0, 50.0),
-                        minimumSize: Size.zero,
-                        side: const BorderSide(
-                          color: cIconTertiaryColor,
-                          width: 1.0,
-                        ),
-                        primary: Colors.transparent,
-                        shadowColor: Colors.transparent,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {},
-                          child: const Icon(
-                            Icons.favorite_border_rounded,
-                            size: 28.0,
-                            color: cIconPrimaryColor,
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            shape: const CircleBorder(),
-                            padding: EdgeInsets.zero,
-                            fixedSize: const Size(50.0, 50.0),
-                            minimumSize: Size.zero,
-                            primary: Colors.transparent,
-                            shadowColor: Colors.transparent,
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {},
-                          child: const Icon(
-                            Icons.share_outlined,
-                            size: 26.0,
-                            color: cIconPrimaryColor,
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            shape: const CircleBorder(),
-                            padding: EdgeInsets.zero,
-                            fixedSize: const Size(50.0, 50.0),
-                            minimumSize: Size.zero,
-                            primary: Colors.transparent,
-                            shadowColor: Colors.transparent,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 38.0),
-                // SONG IMAGE
-                Center(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    height: screenHeight * 0.35,
-                    child: Expanded(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(12.0),
-                        child: AspectRatio(
-                          aspectRatio: 1 / 1,
-                          child: Image(
-                            image: AssetImage(imageUrl),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
+        body: Stack(
+          children: [
+            SizedBox(
+              width: Get.width,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  RotatedBox(
+                    quarterTurns: 1,
+                    child: SvgPicture.asset(
+                      'assets/logos/circles.svg',
+                      width: 500.0,
+                      height: 250.0,
                     ),
                   ),
-                ),
-                const SizedBox(height: 36.0),
-                // TITLE + ARTIST
-                Text(title, style: fTitle2Style),
-                Text(subtitle, style: fUnderTitleStyle),
-                const SizedBox(height: 28.0),
-                // SCRUB BAR
-                Column(
+                ],
+              ),
+            ),
+            SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    buildSlider(context),
-                    const SizedBox(height: 12.0),
+                    // TOP BUTTONS
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(formatDuration(nowTime),
-                            style: fSongMinutesTextStyle),
-                        Text(formatDuration(totalDuration),
-                            style: fSongMinutesTextStyle),
+                        ElevatedButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          child: const Icon(
+                            Icons.arrow_back,
+                            color: cIconPrimaryColor,
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            shape: const CircleBorder(),
+                            padding: EdgeInsets.zero,
+                            fixedSize: const Size(50.0, 50.0),
+                            minimumSize: Size.zero,
+                            side: const BorderSide(
+                              color: cIconTertiaryColor,
+                              width: 1.0,
+                            ),
+                            primary: Colors.transparent,
+                            shadowColor: Colors.transparent,
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {},
+                              child: const Icon(
+                                Icons.favorite_border_rounded,
+                                size: 28.0,
+                                color: cIconPrimaryColor,
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                shape: const CircleBorder(),
+                                padding: EdgeInsets.zero,
+                                fixedSize: const Size(50.0, 50.0),
+                                minimumSize: Size.zero,
+                                primary: Colors.transparent,
+                                shadowColor: Colors.transparent,
+                              ),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {},
+                              child: const Icon(
+                                Icons.share_outlined,
+                                size: 26.0,
+                                color: cIconPrimaryColor,
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                shape: const CircleBorder(),
+                                padding: EdgeInsets.zero,
+                                fixedSize: const Size(50.0, 50.0),
+                                minimumSize: Size.zero,
+                                primary: Colors.transparent,
+                                shadowColor: Colors.transparent,
+                              ),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
+                    const SizedBox(height: 38.0),
+                    // SONG IMAGE
+                    Center(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        height: screenHeight * 0.35,
+                        child: Expanded(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12.0),
+                            child: AspectRatio(
+                              aspectRatio: 1 / 1,
+                              child: Image(
+                                image: AssetImage(imageUrl),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 36.0),
+                    // TITLE + ARTIST
+                    Text(title, style: fTitle2Style),
+                    Text(subtitle, style: fUnderTitleStyle),
+                    const SizedBox(height: 28.0),
+                    // SCRUB BAR
+                    Column(
+                      children: [
+                        buildSlider(context),
+                        const SizedBox(height: 12.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(formatDuration(nowTime),
+                                style: fSongMinutesTextStyle),
+                            Text(formatDuration(totalDuration),
+                                style: fSongMinutesTextStyle),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 32.0),
+                    // PLAY BUTTONS
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            if (!isFirst) {
+                              _audioHandler.previous();
+                              update();
+                            }
+                          },
+                          child: Icon(
+                            Icons.skip_previous_outlined,
+                            size: 42.0,
+                            color: !isFirst
+                                ? cIconPrimaryColor
+                                : cIconTertiaryColor,
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            shape: const CircleBorder(),
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size.zero,
+                            primary: cBackgroundColor,
+                          ),
+                        ),
+                        const SizedBox(width: 30.0),
+                        Ink(
+                          decoration: const BoxDecoration(
+                              gradient: cPrimaryGradiant,
+                              shape: BoxShape.circle),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              switch (_stateController.isPlaying) {
+                                case ButtonState.playing:
+                                  _audioHandler.pause();
+                                  break;
+                                case ButtonState.loading:
+                                  // TODO: Handle this case.
+                                  break;
+                                case ButtonState.paused:
+                                  _audioHandler.play();
+                                  break;
+                              }
+                            },
+                            child: Icon(
+                              currentIcon,
+                              size: 50.0,
+                              color: cIconPrimaryColor,
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              shape: const CircleBorder(),
+                              padding: const EdgeInsets.all(12.0),
+                              minimumSize: Size.zero,
+                              primary: Colors.transparent,
+                              shadowColor: Colors.transparent,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 30.0),
+                        ElevatedButton(
+                          onPressed: () {
+                            if (!isLast) {
+                              _audioHandler.next();
+                              update();
+                            }
+                          },
+                          child: Icon(
+                            Icons.skip_next_outlined,
+                            size: 42.0,
+                            color: !isLast
+                                ? cIconPrimaryColor
+                                : cIconTertiaryColor,
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            shape: const CircleBorder(),
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size.zero,
+                            primary: cBackgroundColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 30.0),
+                    // BOTTOM BUTTONS
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              // GO TO THE PLAYLIST THAT THIS SONG IS IN
+                              Get.back();
+                            },
+                            child: const Icon(
+                              Icons.format_list_bulleted_rounded,
+                              size: 28.0,
+                              color: cIconTertiaryColor,
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              shape: const CircleBorder(),
+                              padding: EdgeInsets.zero,
+                              fixedSize: const Size(50.0, 50.0),
+                              minimumSize: Size.zero,
+                              primary: Colors.transparent,
+                              shadowColor: Colors.transparent,
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              _stateController.isLoop = !isLoop;
+                              update();
+                            },
+                            child: Icon(
+                              Icons.repeat_rounded,
+                              size: 28.0,
+                              color: loopIconColor,
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              shape: const CircleBorder(),
+                              padding: EdgeInsets.zero,
+                              fixedSize: const Size(50.0, 50.0),
+                              minimumSize: Size.zero,
+                              primary: Colors.transparent,
+                              shadowColor: Colors.transparent,
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              _stateController.isShuffle = !isShuffle;
+                              update();
+                            },
+                            child: Icon(
+                              Icons.shuffle_rounded,
+                              size: 28.0,
+                              color: shuffleIconColor,
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              shape: const CircleBorder(),
+                              padding: EdgeInsets.zero,
+                              fixedSize: const Size(50.0, 50.0),
+                              minimumSize: Size.zero,
+                              primary: Colors.transparent,
+                              shadowColor: Colors.transparent,
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: const Icon(
+                              Icons.playlist_add_rounded,
+                              size: 28.0,
+                              color: cIconTertiaryColor,
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              shape: const CircleBorder(),
+                              padding: EdgeInsets.zero,
+                              fixedSize: const Size(50.0, 50.0),
+                              minimumSize: Size.zero,
+                              primary: Colors.transparent,
+                              shadowColor: Colors.transparent,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
-                const SizedBox(height: 32.0),
-                // PLAY BUTTONS
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        if (!isFirst) {
-                          _audioHandler.previous();
-                          update();
-                        }
-                      },
-                      child: Icon(
-                        Icons.skip_previous_outlined,
-                        size: 42.0,
-                        color:
-                            !isFirst ? cIconPrimaryColor : cIconTertiaryColor,
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        shape: const CircleBorder(),
-                        padding: EdgeInsets.zero,
-                        minimumSize: Size.zero,
-                        primary: cBackgroundColor,
-                      ),
-                    ),
-                    const SizedBox(width: 30.0),
-                    Ink(
-                      decoration: const BoxDecoration(
-                          gradient: cPrimaryGradiant, shape: BoxShape.circle),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          switch (_stateController.isPlaying) {
-                            case ButtonState.playing:
-                              _audioHandler.pause();
-                              break;
-                            case ButtonState.loading:
-                              // TODO: Handle this case.
-                              break;
-                            case ButtonState.paused:
-                              _audioHandler.play();
-                              break;
-                          }
-                        },
-                        child: Icon(
-                          currentIcon,
-                          size: 50.0,
-                          color: cIconPrimaryColor,
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          shape: const CircleBorder(),
-                          padding: const EdgeInsets.all(12.0),
-                          minimumSize: Size.zero,
-                          primary: Colors.transparent,
-                          shadowColor: Colors.transparent,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 30.0),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (!isLast) {
-                          _audioHandler.next();
-                          update();
-                        }
-                      },
-                      child: Icon(
-                        Icons.skip_next_outlined,
-                        size: 42.0,
-                        color: !isLast ? cIconPrimaryColor : cIconTertiaryColor,
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        shape: const CircleBorder(),
-                        padding: EdgeInsets.zero,
-                        minimumSize: Size.zero,
-                        primary: cBackgroundColor,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 30.0),
-                // BOTTOM BUTTONS
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          // GO TO THE PLAYLIST THAT THIS SONG IS IN
-                          Get.back();
-                        },
-                        child: const Icon(
-                          Icons.format_list_bulleted_rounded,
-                          size: 28.0,
-                          color: cIconTertiaryColor,
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          shape: const CircleBorder(),
-                          padding: EdgeInsets.zero,
-                          fixedSize: const Size(50.0, 50.0),
-                          minimumSize: Size.zero,
-                          primary: Colors.transparent,
-                          shadowColor: Colors.transparent,
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          _stateController.isLoop = !isLoop;
-                          update();
-                        },
-                        child: Icon(
-                          Icons.repeat_rounded,
-                          size: 28.0,
-                          color: loopIconColor,
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          shape: const CircleBorder(),
-                          padding: EdgeInsets.zero,
-                          fixedSize: const Size(50.0, 50.0),
-                          minimumSize: Size.zero,
-                          primary: Colors.transparent,
-                          shadowColor: Colors.transparent,
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          _stateController.isShuffle = !isShuffle;
-                          update();
-                        },
-                        child: Icon(
-                          Icons.shuffle_rounded,
-                          size: 28.0,
-                          color: shuffleIconColor,
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          shape: const CircleBorder(),
-                          padding: EdgeInsets.zero,
-                          fixedSize: const Size(50.0, 50.0),
-                          minimumSize: Size.zero,
-                          primary: Colors.transparent,
-                          shadowColor: Colors.transparent,
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: const Icon(
-                          Icons.playlist_add_rounded,
-                          size: 28.0,
-                          color: cIconTertiaryColor,
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          shape: const CircleBorder(),
-                          padding: EdgeInsets.zero,
-                          fixedSize: const Size(50.0, 50.0),
-                          minimumSize: Size.zero,
-                          primary: Colors.transparent,
-                          shadowColor: Colors.transparent,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

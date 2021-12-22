@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:rabble/components/lists/song_row_list.dart';
 import 'package:rabble/constants.dart';
 import 'package:get/get.dart';
@@ -32,51 +33,73 @@ class PlaylistPage extends StatelessWidget {
         extendBody: true,
         backgroundColor: cBackgroundColor,
         body: SingleChildScrollView(
-          child: Column(
+          child: Stack(
             children: [
-              Stack(
+              SizedBox(
+                height: Get.height - 30.0,
+                width: Get.width,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    RotatedBox(
+                      quarterTurns: 3,
+                      child: SvgPicture.asset(
+                        'assets/logos/circles.svg',
+                        width: 436.0,
+                        height: 218.0,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Column(
                 children: [
-                  SizedBox(
-                    height: 150.0,
-                    width: Get.width,
-                    child: Hero(
-                      tag: title + imageUrl,
-                      child: Image.asset(
-                        imageUrl,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  Hero(
-                    tag: title + "gradient",
-                    child: Container(
-                      height: 152.0,
-                      decoration: const BoxDecoration(
-                        gradient: cTopGradient,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 130.0,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Hero(
-                            tag: title,
-                            child: Text(title, style: fTitleStyle),
+                  Stack(
+                    children: [
+                      SizedBox(
+                        height: 150.0,
+                        width: Get.width,
+                        child: Hero(
+                          tag: title + imageUrl,
+                          child: Image.asset(
+                            imageUrl,
+                            fit: BoxFit.cover,
                           ),
-                        ],
+                        ),
                       ),
-                    ),
+                      Hero(
+                        tag: title + "gradient",
+                        child: Container(
+                          height: 152.0,
+                          decoration: const BoxDecoration(
+                            gradient: cTopGradient,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 130.0,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Hero(
+                                tag: title,
+                                child: Text(title, style: fTitleStyle),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: SongRowList(list: songs, live: false),
                   ),
                 ],
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: SongRowList(list: songs, live: false),
               ),
             ],
           ),
