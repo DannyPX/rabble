@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:rabble/components/cards/song_row.dart';
+import 'package:rabble/components/lists/list_type_enum.dart';
 import 'package:rabble/models/query_video.dart';
 
 class SongRowList extends StatelessWidget {
   const SongRowList({
     Key? key,
     required this.list,
-    required this.live,
+    required this.isLiveData,
   }) : super(key: key);
 
   final List list;
-  final bool live;
+  final ListType isLiveData;
 
   @override
   Widget build(BuildContext context) {
@@ -21,26 +22,36 @@ class SongRowList extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       itemCount: list.length,
       itemBuilder: (ctx, index) {
-        if (!live) {
-          return SongRow(
-            title: list[index]['title'],
-            subtitle: list[index]['subtitle'],
-            imageUrl: list[index]['imageUrl'],
-            views: list[index]['views'],
-            time: list[index]['time'],
-            live: live,
-          );
-        } else {
-          final QueryVideo video = list[index];
-          return SongRow(
-            title: video.title,
-            subtitle: video.author,
-            imageUrl: video.thumbnail,
-            views: video.viewCount,
-            time: video.duration,
-            live: live,
-            id: video.id,
-          );
+        switch (isLiveData) {
+          case ListType.asset:
+            return SongRow(
+              title: list[index]['title'],
+              subtitle: list[index]['subtitle'],
+              imageUrl: list[index]['imageUrl'],
+              time: list[index]['time'],
+              isLiveData: isLiveData,
+            );
+          case ListType.internet:
+            final QueryVideo video = list[index];
+            return SongRow(
+              title: video.title,
+              subtitle: video.author,
+              imageUrl: video.thumbnail,
+              time: video.duration,
+              isLiveData: isLiveData,
+              id: video.id,
+            );
+          case ListType.localStorage:
+            Map<String, dynamic> song = list[index];
+            Map<String, String> extra = song['extras'];
+            String imageUrl = extra['imageUrl'] ?? "?";
+            return SongRow(
+              title: song['title'],
+              subtitle: song['artist'],
+              imageUrl: imageUrl,
+              time: song['duration'],
+              isLiveData: isLiveData,
+            );
         }
       },
     );

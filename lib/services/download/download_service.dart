@@ -53,7 +53,6 @@ Future<void> writeMetaDataToFile(
     'author': video.author,
     'duration': video.duration.inSeconds.toString(),
     'thumbnail': video.thumbnail,
-    'viewCount': video.viewCount.toString(),
   };
   var file = File("$path/downloaded/$id/metadata.json");
   file.writeAsStringSync(json.encode(jsonMetadata));

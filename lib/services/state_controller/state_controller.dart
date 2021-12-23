@@ -11,6 +11,13 @@ class GetController extends GetxController {
       id: '0', title: 'Track Test', artist: '', extras: {'imageUrl': ''});
   List<MediaItem> currentPlaylist = List.empty();
   String currentPlaylistName = '';
+  Map<String, dynamic> songStorageData = {
+    'downloaded': Map<String, dynamic>.from({
+      'amountSongs': 0,
+      'songs': List.empty(growable: true),
+    }),
+    'playlists': List<Map>.empty(growable: true),
+  };
   bool isFirst = true;
   bool isLast = false;
   bool isLoop = false;

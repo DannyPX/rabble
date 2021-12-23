@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rabble/components/lists/list_type_enum.dart';
 import 'package:rabble/components/lists/song_row_list.dart';
 import 'package:rabble/services/search/search_service.dart';
 
@@ -36,6 +37,6 @@ class Search extends StatelessWidget {
 
   Widget build(BuildContext context) {
     final videos = service.videos;
-    return SongRowList(list: videos, live: true);
+    return SongRowList(list: videos, isLiveData: ListType.internet);
   }
 }

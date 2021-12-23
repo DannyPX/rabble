@@ -27,16 +27,8 @@ class RabbleAudioService {
       ),
     );
 
-    final directory = await getApplicationDocumentsDirectory();
-    final Directory _appDocDirFolder =
-        Directory('${directory.path}/downloaded/');
-
-    if (await _appDocDirFolder.exists()) {
-    } else {
-      //if folder not exists create folder and then return its path
-      await _appDocDirFolder.create(recursive: true);
-    }
-
+    _checkDirectories();
+    _loadDirectoryToState();
     _listenToPlaybackState();
     _listenToMediaItem();
     loadPlaylist('downloaded');
@@ -70,13 +62,16 @@ class RabbleAudioService {
 
   Future<void> loadPlaylist(String playlistName) async {
     _stateController.currentPlaylistName = playlistName;
-    List<FileSystemEntity> _folders;
+    _audioHandler.addQueueItems(
+        await _loadDirectoryPlaylist(await loadFolders(playlistName)));
+  }
+
+  Future<List<FileSystemEntity>> loadFolders(String folderName) async {
     final directory = await getApplicationDocumentsDirectory();
     final dir = directory.path;
-    String playlistDir = '$dir/$playlistName/';
-    Directory myDir = Directory(playlistDir);
-    _folders = await myDir.list(recursive: false, followLinks: false).toList();
-    _audioHandler.addQueueItems(await _loadDirectoryPlaylist(_folders));
+    String folderDir = '$dir/$folderName/';
+    Directory myDir = Directory(folderDir);
+    return await myDir.list(recursive: false, followLinks: false).toList();
   }
 
   Future<List<MediaItem>> _loadDirectoryPlaylist(
@@ -85,10 +80,7 @@ class RabbleAudioService {
     for (var element in folders) {
       if (element is Directory) {
         Directory currentDir = element;
-        File currentFile = File(currentDir.path + '/metadata.json');
-        final contents = await currentFile.readAsString();
-        Map<String, dynamic> metadataMap = json.decode(contents);
-        VideoMetadata metadata = VideoMetadata.fromJson(metadataMap);
+        VideoMetadata metadata = await _loadMetadata(currentDir);
 
         playlist.add(MediaItem(
             id: metadata.id,
@@ -129,6 +121,63 @@ class RabbleAudioService {
           'url': songDir + '/audio.webm',
           'imageUrl': songDir + '/thumbnail.jpg'
         });
+  }
+
+  Future<void> _checkDirectories() async {
+    final directory = await getApplicationDocumentsDirectory();
+    final Directory _appDocDirFolder =
+        Directory('${directory.path}/downloaded/');
+
+    if (await _appDocDirFolder.exists()) {
+    } else {
+      //if folder not exists create folder and then return its path
+      await _appDocDirFolder.create(recursive: true);
+    }
+
+    final Directory _appDocDirFolder2 =
+        Directory('${directory.path}/playlists/');
+
+    if (await _appDocDirFolder2.exists()) {
+    } else {
+      //if folder not exists create folder and then return its path
+      await _appDocDirFolder2.create(recursive: true);
+    }
+  }
+
+  Future<void> _loadDirectoryToState() async {
+    List<FileSystemEntity> _folders = await loadFolders('downloaded');
+    for (var element in _folders) {
+      if (element is Directory) {
+        Directory currentDir = element;
+        VideoMetadata metadata = await _loadMetadata(currentDir);
+
+        Map<String, dynamic> mapData =
+            _stateController.songStorageData['downloaded'];
+        List<dynamic> listData = mapData['songs'];
+
+        listData.add({
+          'id': metadata.id,
+          'album': '-',
+          'title': metadata.title,
+          'artist': metadata.author,
+          'artUri': Uri.file(currentDir.path + '/thumbnail.jpg'),
+          'duration': metadata.duration,
+          'extras': Map<String, String>.from({
+            'url': currentDir.path + '/audio.webm',
+            'imageUrl': currentDir.path + '/thumbnail.jpg'
+          })
+        });
+
+        _stateController.songStorageData['downloaded'] = mapData;
+      }
+    }
+  }
+
+  Future<VideoMetadata> _loadMetadata(Directory songDir) async {
+    File currentFile = File(songDir.path + '/metadata.json');
+    final contents = await currentFile.readAsString();
+    Map<String, dynamic> metadataMap = json.decode(contents);
+    return VideoMetadata.fromJson(metadataMap);
   }
 
   void _listenToPlaybackState() {

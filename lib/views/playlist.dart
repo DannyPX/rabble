@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:rabble/components/lists/list_type_enum.dart';
 import 'package:rabble/components/lists/song_row_list.dart';
 import 'package:rabble/constants.dart';
 import 'package:get/get.dart';
@@ -10,10 +11,14 @@ class PlaylistPage extends StatelessWidget {
     Key? key,
     required this.title,
     required this.imageUrl,
+    required this.songlistMap,
+    required this.isLiveData,
   }) : super(key: key);
 
   final String title;
   final String imageUrl;
+  final List<dynamic> songlistMap;
+  final ListType isLiveData;
 
   final List<Map> songs = List.generate(
       3,
@@ -97,7 +102,11 @@ class PlaylistPage extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: SongRowList(list: songs, live: false),
+                    child: SongRowList(
+                        list: isLiveData == ListType.localStorage
+                            ? songlistMap
+                            : songs,
+                        isLiveData: isLiveData),
                   ),
                 ],
               ),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -10,12 +12,14 @@ class LargeCard extends StatelessWidget {
     required this.songAmount,
     required this.playlistNavigation,
     required this.imageUrl,
+    required this.isAsset,
   }) : super(key: key);
 
   final String title;
   final int songAmount;
   final Widget playlistNavigation;
   final String imageUrl;
+  final bool isAsset;
   final double circleSize = 20;
 
   @override
@@ -36,12 +40,19 @@ class LargeCard extends StatelessWidget {
             children: [
               Hero(
                 tag: title + imageUrl + "library",
-                child: Image.asset(
-                  imageUrl,
-                  height: 100,
-                  width: Get.width,
-                  fit: BoxFit.cover,
-                ),
+                child: isAsset
+                    ? Image.asset(
+                        imageUrl,
+                        height: 100,
+                        width: Get.width,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.file(
+                        File(imageUrl),
+                        fit: BoxFit.cover,
+                        height: 100,
+                        width: Get.width,
+                      ),
               ),
               Hero(
                 tag: title + "gradient" + "library",

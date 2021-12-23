@@ -5,9 +5,11 @@ class LargeCardList extends StatelessWidget {
   const LargeCardList({
     Key? key,
     required this.list,
+    required this.isAsset,
   }) : super(key: key);
 
   final List list;
+  final bool isAsset;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class LargeCardList extends StatelessWidget {
           songAmount: list[index]['songAmount'],
           playlistNavigation: list[index]['playlistNavigation'],
           imageUrl: list[index]['imageUrl'],
+          isAsset: isAsset,
         );
       },
     );

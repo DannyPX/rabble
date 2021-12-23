@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:rabble/components/lists/list_type_enum.dart';
 import 'package:rabble/constants.dart';
 import 'package:rabble/models/query_video.dart';
 import 'package:rabble/services/audio_service/audio_service.dart';
@@ -15,18 +18,16 @@ class SongRow extends StatefulWidget {
     required this.title,
     required this.subtitle,
     required this.imageUrl,
-    required this.views,
     required this.time,
-    required this.live,
+    required this.isLiveData,
     this.id,
   }) : super(key: key);
 
   final String title;
   final String subtitle;
-  final int views;
   final Duration time;
   final String imageUrl;
-  final bool live;
+  final ListType isLiveData;
   String? id;
 
   @override
@@ -42,11 +43,9 @@ class _SongRowState extends State<SongRow> {
 
   String get imageUrl => widget.imageUrl;
 
-  int get views => widget.views;
-
   Duration get time => widget.time;
 
-  bool get live => widget.live;
+  ListType get isLiveData => widget.isLiveData;
 
   String? get id => widget.id;
 
@@ -64,7 +63,7 @@ class _SongRowState extends State<SongRow> {
       child: GestureDetector(
         onTap: () {
           // TODO update state with song details
-          if (!live) {
+          if (isLiveData == ListType.localStorage) {
             pushNewScreen(
               context,
               screen: SongPage(),
@@ -86,7 +85,7 @@ class _SongRowState extends State<SongRow> {
                         borderRadius: BorderRadius.circular(8.0),
                         child: AspectRatio(
                           aspectRatio: 1 / 1,
-                          child: _formatImage(imageUrl, live),
+                          child: _formatImage(imageUrl, isLiveData),
                         ),
                       ),
                       //TODO Add play button
@@ -123,19 +122,6 @@ class _SongRowState extends State<SongRow> {
                         title: Row(
                           children: [
                             const Icon(
-                              Icons.remove_red_eye_outlined,
-                              color: cTextTertiaryColor,
-                            ),
-                            const SizedBox(width: 8),
-                            SizedBox(
-                              width: 35,
-                              child: Text(
-                                views.toString(),
-                                style: fListUnderTitleStyle,
-                                maxLines: 1,
-                              ),
-                            ),
-                            const Icon(
                               Icons.access_time,
                               color: cTextTertiaryColor,
                             ),
@@ -156,7 +142,7 @@ class _SongRowState extends State<SongRow> {
             Center(
               child: GestureDetector(
                 onTap: () {
-                  if (live && !loading) {
+                  if (isLiveData == ListType.internet && !loading) {
                     download(
                       QueryVideo(
                         title,
@@ -164,7 +150,6 @@ class _SongRowState extends State<SongRow> {
                         subtitle,
                         time,
                         imageUrl,
-                        views,
                       ),
                       context,
                     );
@@ -176,7 +161,7 @@ class _SongRowState extends State<SongRow> {
                   print("Add to playlist");
                 },
                 child: Icon(
-                  live
+                  isLiveData == ListType.internet
                       ? (loading
                           ? Icons.circle_outlined
                           : Icons.download_rounded)
@@ -191,17 +176,23 @@ class _SongRowState extends State<SongRow> {
     );
   }
 
-  Image _formatImage(String image, bool live) {
-    if (!live) {
-      return Image(
-        image: AssetImage(image),
-        fit: BoxFit.cover,
-      );
-    } else {
-      return Image.network(
-        image,
-        fit: BoxFit.cover,
-      );
+  Image _formatImage(String image, ListType live) {
+    switch (live) {
+      case ListType.internet:
+        return Image.network(
+          image,
+          fit: BoxFit.cover,
+        );
+      case ListType.asset:
+        return Image(
+          image: AssetImage(image),
+          fit: BoxFit.cover,
+        );
+      case ListType.localStorage:
+        return Image.file(
+          File(image),
+          fit: BoxFit.cover,
+        );
     }
   }
 

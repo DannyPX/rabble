@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rabble/components/lists/list_type_enum.dart';
 import 'package:rabble/components/lists/small_card_grid.dart';
 import 'package:rabble/components/lists/song_row_list.dart';
 import 'package:rabble/components/search/search_box.dart';
@@ -15,7 +16,11 @@ class HomePage extends StatelessWidget {
             "title": "title $index",
             "subtitle": "",
             "playlistNavigation": PlaylistPage(
-                title: "title $index", imageUrl: "assets/images/stromae.jpg"),
+              title: "title $index",
+              imageUrl: "assets/images/stromae.jpg",
+              songlistMap: [],
+              isLiveData: ListType.asset,
+            ),
             "imageUrl": "assets/images/stromae.jpg"
           }).toList();
 
@@ -51,7 +56,7 @@ class HomePage extends StatelessWidget {
           title: "Recently listened",
           hasNavigation: false,
         ),
-        SongRowList(list: songs, live: false),
+        SongRowList(list: songs, isLiveData: ListType.asset),
       ],
     );
   }

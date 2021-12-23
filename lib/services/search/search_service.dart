@@ -58,8 +58,7 @@ class _ChannelSearchServiceImpl extends ChangeNotifier
           e.id.value,
           e.author,
           e.duration!,
-          e.thumbnails.highResUrl,
-          e.engagement.viewCount)));
+          e.thumbnails.highResUrl)));
       _loading = false;
       _currentPage = value;
       notifyListeners();
@@ -91,12 +90,7 @@ class _ChannelSearchServiceImpl extends ChangeNotifier
     }
     _currentPage = page;
     _videos.addAll(_currentPage.where((e) => !e.isLive).map((e) => QueryVideo(
-        e.title,
-        e.id.value,
-        e.author,
-        e.duration!,
-        e.thumbnails.highResUrl,
-        e.engagement.viewCount)));
+        e.title, e.id.value, e.author, e.duration!, e.thumbnails.highResUrl)));
     _loading = false;
     notifyListeners();
   }
@@ -132,8 +126,7 @@ class _VideoSearchServiceImpl extends ChangeNotifier implements SearchService {
           e.id.value,
           e.author,
           e.duration!,
-          e.thumbnails.highResUrl,
-          e.engagement.viewCount)));
+          e.thumbnails.highResUrl)));
       _loading = false;
       _currentPage = value;
       notifyListeners();
@@ -165,12 +158,7 @@ class _VideoSearchServiceImpl extends ChangeNotifier implements SearchService {
     }
     _currentPage = page;
     _videos.addAll(_currentPage.where((e) => !e.isLive).map((e) => QueryVideo(
-        e.title,
-        e.id.value,
-        e.author,
-        e.duration!,
-        e.thumbnails.highResUrl,
-        e.engagement.viewCount)));
+        e.title, e.id.value, e.author, e.duration!, e.thumbnails.highResUrl)));
     _loading = false;
     notifyListeners();
   }
