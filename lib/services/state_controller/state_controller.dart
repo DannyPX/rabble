@@ -24,4 +24,9 @@ class GetController extends GetxController {
   bool isShuffle = false;
 
   PersistentTabController controller = PersistentTabController(initialIndex: 0);
+
+  updateDownloadedStorageData(Map<String, dynamic> newData) {
+    songStorageData['downloaded'] = newData;
+    update();
+  }
 }

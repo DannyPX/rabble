@@ -13,10 +13,10 @@ class LibraryPage extends StatelessWidget {
   final GetController _stateController = Get.find<GetController>();
 
   final List<Map> playlists = List.generate(
-      5,
+      1,
       (index) => {
             "title": "title $index",
-            "songAmount": 123,
+            "songAmount": 1,
             "playlistNavigation": PlaylistPage(
               title: "title $index",
               imageUrl: "assets/images/stromae.jpg",
@@ -28,32 +28,19 @@ class LibraryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> mapData =
-        _stateController.songStorageData['downloaded'];
-    List<dynamic> listData = mapData['songs'];
-
-    List<Map> libraryList = List.from([
-      {
-        'title': 'Downloaded Songs',
-        'songAmount': listData.length,
-        'playlistNavigation': PlaylistPage(
-          title: 'Downloaded Songs',
-          imageUrl: 'assets/images/onboarding.jpg',
-          songlistMap: listData,
-          isLiveData: ListType.localStorage,
-        ),
-        'imageUrl': 'assets/images/onboarding.jpg',
-      }
-    ]);
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         PageTitle(welcomeMessage: false, title: "Library"),
         const SizedBox(height: 16.0),
-        LargeCardList(
-          list: libraryList,
-          isAsset: true,
+        GetBuilder(
+          init: GetController(),
+          builder: (value) {
+            return LargeCardList(
+              list: createDownloadedList(),
+              isAsset: true,
+            );
+          },
         ),
         const SizedBox(height: 16.0),
         SecondTitle(
@@ -67,5 +54,25 @@ class LibraryPage extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  List<Map> createDownloadedList() {
+    Map<String, dynamic> mapData =
+        _stateController.songStorageData['downloaded'];
+    List<dynamic> listData = mapData['songs'];
+
+    return List.from([
+      {
+        'title': 'Downloaded Songs',
+        'songAmount': listData.length,
+        'playlistNavigation': PlaylistPage(
+          title: 'Downloaded Songs',
+          imageUrl: 'assets/images/onboarding.jpg',
+          songlistMap: listData,
+          isLiveData: ListType.localStorage,
+        ),
+        'imageUrl': 'assets/images/onboarding.jpg',
+      }
+    ]);
   }
 }

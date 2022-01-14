@@ -11,9 +11,9 @@ class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
 
   final List<Map> playlists = List.generate(
-      4,
+      2,
       (index) => {
-            "title": "title $index",
+            "title": "Playlist $index",
             "subtitle": "",
             "playlistNavigation": PlaylistPage(
               title: "title $index",
@@ -27,8 +27,8 @@ class HomePage extends StatelessWidget {
   final List<Map> songs = List.generate(
       5,
       (index) => {
-            "title": "title $index",
-            "subtitle": "Stromae",
+            "title": "Song Title $index",
+            "subtitle": "Artist",
             "imageUrl": "assets/images/onboarding.jpg",
             "views": 123,
             "time": Duration(minutes: 3, seconds: 12),

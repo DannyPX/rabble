@@ -28,7 +28,7 @@ class RabbleAudioService {
     );
 
     _checkDirectories();
-    _loadDirectoryToState();
+    loadDirectoryToState();
     _listenToPlaybackState();
     _listenToMediaItem();
     loadPlaylist('downloaded');
@@ -144,7 +144,12 @@ class RabbleAudioService {
     }
   }
 
-  Future<void> _loadDirectoryToState() async {
+  Future<void> loadDirectoryToState() async {
+    _stateController.updateDownloadedStorageData(Map<String, dynamic>.from({
+      'amountSongs': 0,
+      'songs': List.empty(growable: true),
+    }));
+
     List<FileSystemEntity> _folders = await loadFolders('downloaded');
     for (var element in _folders) {
       if (element is Directory) {
@@ -167,8 +172,7 @@ class RabbleAudioService {
             'imageUrl': currentDir.path + '/thumbnail.jpg'
           })
         });
-
-        _stateController.songStorageData['downloaded'] = mapData;
+        _stateController.updateDownloadedStorageData(mapData);
       }
     }
   }

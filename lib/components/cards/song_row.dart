@@ -205,6 +205,7 @@ class _SongRowState extends State<SongRow> {
         }
         ScaffoldMessenger.of(context)
             .showSnackBar(getSnackBar('${video.title} downloaded'));
+        _audioHandler.loadDirectoryToState();
         setState(() {
           loading = false;
         });
